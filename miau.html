@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoFormacion | Aprende y Transforma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="miau.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">TecnoFormacion</div>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Aprende. Crea. Transforma.</h1>
+                <p>Formación tecnológica de vanguardia en programación, diseño y marketing digital.</p>
+                <a href="#cursos" class="btn">Ver cursos</a>
+            </div>
+        </section>
+
+        <section id="cursos">
+            <h2 class="section-title">Nuestros Cursos</h2>
+            <div class="contenedor-tarjetas">
+                <article class="tarjeta">
+                    <div class="tarjeta-imagen"></div>
+                    <div class="tarjeta-cuerpo">
+                        <h3>Desarrollo Web</h3>
+                        <p>Aprende HTML5 y CSS3 desde cero. Duración: 4 semanas (Básico).</p>
+                        <a href="#" class="btn">Ver detalle</a>
+                    </div>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta-imagen"></div>
+                    <div class="tarjeta-cuerpo">
+                        <h3>JavaScript Avanzado</h3>
+                        <p>Domina el lenguaje de la web moderna. Duración: 6 semanas (Intermedio).</p>
+                        <a href="#" class="btn">Ver detalle</a>
+                    </div>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta-imagen"></div>
+                    <div class="tarjeta-cuerpo">
+                        <h3>Marketing Digital</h3>
+                        <p>Estrategias para posicionar marcas globales. Duración: 5 semanas (Básico).</p>
+                        <a href="#" class="btn">Ver detalle</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contenedor-formulario">
+                <form class="formulario" action="#" method="post">
+                    <div class="form-group-inline">
+                        <div class="field">
+                            <label for="nombre">Nombre completo:</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="field">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required>
+                        </div>
+                    </div>
+                    
+                    <label for="asunto">Asunto:</label>
+                    <input type="text" id="asunto" name="asunto" placeholder="Motivo de tu mensaje" required>
+
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+                    <button type="submit" class="btn btn-submit">Enviar mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>TecnoFormacion S.A.S. &copy; 2025 - Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="#">Política de privacidad</a>
+                <a href="#">Términos de uso</a>
+                <a href="#">Redes sociales</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
