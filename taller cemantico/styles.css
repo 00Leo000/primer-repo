@@ -1,0 +1,449 @@
+/* =========================================
+   VARIABLES DE COLOR (Paleta Azul Pastel y Fuerte)
+========================================= */
+:root {
+    --bg-light: #F0F8FF;        /* Azul pastel muy suave (AliceBlue) */
+    --bg-card: #FFFFFF;         /* Blanco para tarjetas */
+    --blue-pastel: #BBDDFB;     /* Azul pastel medio */
+    --blue-primary: #2196F3;    /* Azul vibrante principal */
+    --blue-strong: #0D47A1;     /* Azul oscuro/marino fuerte */
+    --blue-hover: #1976D2;      /* Azul para hovers */
+    --text-main: #333333;       /* Gris muy oscuro para el texto */
+    --text-light: #666666;      /* Gris medio para descripciones */
+    
+    --border-radius: 12px;
+    --shadow-soft: 0 8px 20px rgba(13, 71, 161, 0.08);
+    --shadow-hover: 0 12px 25px rgba(13, 71, 161, 0.15);
+    --transition: all 0.3s ease;
+}
+
+/* =========================================
+   RESETEO Y ESTILOS GLOBALES
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--blue-strong);
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--blue-primary);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* =========================================
+   HEADER Y NAVEGACIÓN
+========================================= */
+.main-header {
+    background-color: var(--blue-strong);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.main-nav a {
+    color: var(--bg-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.main-nav a:hover {
+    color: var(--blue-pastel);
+}
+
+.nav-btn {
+    background-color: var(--blue-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white !important;
+}
+
+.nav-btn:hover {
+    background-color: var(--blue-pastel);
+    color: var(--blue-strong) !important;
+}
+
+/* =========================================
+   SECCIÓN HERO (INICIO)
+========================================= */
+.hero-section {
+    background: linear-gradient(135deg, var(--blue-strong) 0%, var(--blue-primary) 100%);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: var(--bg-light);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--bg-card);
+    color: var(--blue-strong);
+}
+
+.btn-primary:hover {
+    background-color: var(--blue-pastel);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   SECCIÓN NOTICIAS (GRID CARDS)
+========================================= */
+.news-section {
+    padding: 80px 20px;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.news-card {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-blue-1 { background-color: var(--blue-pastel); }
+.bg-blue-2 { background-color: var(--blue-primary); }
+
+.card-content {
+    padding: 25px;
+}
+
+.card-content h3 {
+    color: var(--blue-strong);
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.read-more {
+    color: var(--blue-primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    color: var(--blue-strong);
+}
+
+/* =========================================
+   SECCIÓN EVENTOS (LISTA)
+========================================= */
+.events-section {
+    padding: 40px 20px 80px;
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.event-item {
+    display: flex;
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+    align-items: center;
+    gap: 20px;
+    border-left: 5px solid var(--blue-primary);
+}
+
+.event-date {
+    background-color: var(--bg-light);
+    color: var(--blue-strong);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.event-date .day {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.event-date .month {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.event-details h3 {
+    color: var(--blue-strong);
+    margin-bottom: 5px;
+}
+
+.event-details p {
+    color: var(--text-light);
+}
+
+/* =========================================
+   SECCIÓN CONTÁCTANOS (FORMULARIO PREMIUM)
+========================================= */
+.contact-section {
+    padding: 60px 20px 100px;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.contact-info {
+    background: var(--blue-strong);
+    color: white;
+    padding: 40px;
+}
+
+.contact-info h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--blue-pastel);
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.contact-form-container {
+    padding: 40px;
+}
+
+.styled-form fieldset {
+    border: 2px solid var(--blue-pastel);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #FAFCFF;
+}
+
+.styled-form legend {
+    background-color: var(--blue-primary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .half {
+    flex: 1;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: var(--blue-strong);
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--blue-pastel);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--blue-primary);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-label {
+    font-weight: normal;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background-color: var(--blue-primary);
+    color: white;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+.btn-submit:hover {
+    background-color: var(--blue-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 71, 161, 0.3);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.main-footer {
+    background-color: var(--blue-strong);
+    color: var(--blue-pastel);
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 5px solid var(--blue-primary);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   RESPONSIVO (MÓVILES)
+========================================= */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

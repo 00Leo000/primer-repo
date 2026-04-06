@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Leandro Garcia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-name">LeandroG</span>
+                <span class="logo-bracket"> /&gt;</span>
+            </div>
+            <ul class="navbar__links">
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#sobre-mi">Sobre mí</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero__content">
+                <div>
+                    <h1 class="hero__title">Hola, soy <span>Leandro Garcia</span></h1>
+                    <p>Desarrollador de Software Junior. Estudiante de ADSO enfocado en crear soluciones tecnológicas eficientes, limpias y funcionales.</p>
+                    <div class="hero__buttons">
+                        <a href="#" class="btn-primary">Descargar CV</a>
+                        <a href="#proyectos" class="btn-secondary">Ver proyectos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="container">
+            <h2>Mis Proyectos</h2>
+            <div class="proyectos-grid">
+                <article class="project-card">
+                    <figure class="project-card__image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Sistema de Control de Ingreso" class="project-card__img">
+                        <div class="project-card__overlay">
+                            <p>Ver proyecto</p>
+                            <div class="overlay__links">
+                                <a href="#" class="overlay__btn">Demo en vivo</a>
+                                <a href="#" class="overlay__btn">Ver código</a>
+                            </div>
+                        </div>
+                        <figcaption class="sr-only">Sistema de Control de Ingreso del SENA</figcaption>
+                    </figure>
+                    <div class="project-card__body">
+                        <h3>Sistema de Control de Ingreso</h3>
+                        <div class="project-card__tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">SQL</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <figure class="project-card__image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800" alt="Gestor de Tareas" class="project-card__img">
+                        <div class="project-card__overlay">
+                            <p>Ver proyecto</p>
+                            <div class="overlay__links">
+                                <a href="#" class="overlay__btn">Demo en vivo</a>
+                                <a href="#" class="overlay__btn">Ver código</a>
+                            </div>
+                        </div>
+                        <figcaption class="sr-only">Aplicación web para gestión de tareas diarias</figcaption>
+                    </figure>
+                    <div class="project-card__body">
+                        <h3>App de Tareas</h3>
+                        <div class="project-card__tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">DOM</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <figure class="project-card__image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="E-Commerce API" class="project-card__img">
+                        <div class="project-card__overlay">
+                            <p>Ver proyecto</p>
+                            <div class="overlay__links">
+                                <a href="#" class="overlay__btn">Demo en vivo</a>
+                                <a href="#" class="overlay__btn">Ver código</a>
+                            </div>
+                        </div>
+                        <figcaption class="sr-only">Backend para tienda virtual</figcaption>
+                    </figure>
+                    <div class="project-card__body">
+                        <h3>E-Commerce Backend</h3>
+                        <div class="project-card__tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">SQL</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <figure class="project-card__image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800" alt="Portafolio Personal" class="project-card__img">
+                        <div class="project-card__overlay">
+                            <p>Ver proyecto</p>
+                            <div class="overlay__links">
+                                <a href="#" class="overlay__btn">Demo en vivo</a>
+                                <a href="#" class="overlay__btn">Ver código</a>
+                            </div>
+                        </div>
+                        <figcaption class="sr-only">Este mismo portafolio web interactivo</figcaption>
+                    </figure>
+                    <div class="project-card__body">
+                        <h3>Portafolio Web</h3>
+                        <div class="project-card__tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS Grid</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="skills" class="container">
+            <h2>Mis Tecnologías</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><span>HTML5</span></div>
+                <div class="skill-item"><span>CSS3</span></div>
+                <div class="skill-item"><span>JavaScript</span></div>
+                <div class="skill-item"><span>PHP</span></div>
+                <div class="skill-item"><span>Java</span></div>
+                <div class="skill-item"><span>SQL</span></div>
+                <div class="skill-item"><span>Git</span></div>
+                <div class="skill-item"><span>GitHub</span></div>
+                <div class="skill-item"><span>Node.js</span></div>
+            </div>
+        </section>
+
+        <section id="sobre-mi" class="container">
+            <h2>Sobre Mí</h2>
+            <div class="sobre-mi__content">
+                <p>Soy Leandro Andres Garcia Soto, tengo 18 años y soy de Tuluá, Valle del Cauca. Actualmente me formo como tecnólogo en Análisis y Desarrollo de Software (ADSO) en el SENA. Me apasiona resolver problemas a través del código, trabajando tanto en el Front-End como en el Back-End. Cuando no estoy programando, me gusta mantenerme en forma entrenando, jugar videojuegos y aprender cosas nuevas.</p>
+            </div>
+        </section>
+
+        <section id="contacto" class="container">
+            <h2>Envíame un mensaje</h2>
+            <form class="contact-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+                </div>
+                <div class="form-group">
+                    <label for="asunto">Asunto</label>
+                    <input type="text" id="asunto" name="asunto" placeholder="Motivo de contacto" required maxlength="80">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntame sobre tu proyecto o propuesta..." required minlength="20"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer__content container">
+            <p>&copy; 2026 Leandro Garcia. Hecho con HTML & CSS.</p>
+            <div class="footer__links">
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#hero">Volver arriba &uarr;</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

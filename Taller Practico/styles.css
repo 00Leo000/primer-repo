@@ -1,0 +1,293 @@
+/* --- ESTILOS GENERALES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Open Sans', sans-serif; 
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #1a1a2e; 
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #f0a000; 
+}
+
+/* --- HERO & ANIMACIÓN (BONUS 2) --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+    height: 70vh;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1500&q=80'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.fade-in-title {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* --- SECCIONES COMUNES --- */
+section {
+    padding: 80px 5%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    color: #1a1a2e;
+}
+
+/* --- ACERCA DE (BONUS 5) --- */
+#acerca-de {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    background-color: #fff;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.acerca-imagen {
+    flex: 1;
+    height: 350px;
+    background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80') center/cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.acerca-texto {
+    flex: 1;
+}
+
+.acerca-texto p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* --- TARJETAS DE CURSOS (BONUS 3) --- */
+#cursos {
+    background-color: #f8f9fa;
+}
+
+.contenedor-tarjetas {
+    display: flex; 
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.tarjeta {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    /* BONUS 3: Sombra y transición aplicadas */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* BONUS 3: Efecto de elevación al hacer hover */
+.tarjeta:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.tarjeta-imagen {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-curso-1 { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80'); }
+.bg-curso-2 { background-image: url('https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=600&q=80'); }
+.bg-curso-3 { background-image: url('https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=600&q=80'); }
+
+.tarjeta-cuerpo {
+    padding: 25px;
+    text-align: center;
+}
+
+.tarjeta-cuerpo h3 {
+    margin-bottom: 10px;
+    color: #1a1a2e;
+}
+
+.tarjeta-cuerpo p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* --- BOTONES --- */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #003366;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease; 
+}
+
+.btn:hover {
+    background-color: #0055aa; 
+}
+
+/* --- FORMULARIO DE CONTACTO CSS GRID (BONUS 4) --- */
+.contenedor-formulario {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales para Nombre y Correo */
+    gap: 20px 30px; /* Espaciado entre filas y columnas */
+}
+
+.field-full {
+    grid-column: 1 / -1; /* Ocupa el ancho completo (Asunto y Mensaje) */
+}
+
+.form-group label, .field-full label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.formulario input, .formulario textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.formulario input:focus, .formulario textarea:focus {
+    border-color: #003366; 
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 51, 102, 0.2);
+}
+
+.btn-submit {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #1a1a2e;
+    color: #fff;
+    padding: 40px 5%;
+    text-align: center;
+}
+
+.footer-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+/* --- MEDIA QUERIES (BONUS 1: RESPONSIVIDAD MÓVIL) --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Simplificación para móviles */
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    #acerca-de {
+        flex-direction: column;
+    }
+    
+    /* Apila las tarjetas verticalmente en pantallas pequeñas */
+    .contenedor-tarjetas {
+        flex-direction: column;
+    }
+    
+    /* El formulario pasa de Grid 2 columnas a 1 columna */
+    .formulario {
+        grid-template-columns: 1fr; 
+    }
+}

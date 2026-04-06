@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patitas - Formularios Flexbox</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Formularios Patitas</h1>
+        <p>El centro de tu cuidado Gatuno 😽</p>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="form-wrapper">
+            <h2>Registro del Dueño 🐾</h2>
+            <form action="#" method="POST" class="flex-form-columna">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="genero_dueño">Género:</label>
+                    <select id="genero_dueño" name="genero_dueño" required>
+                        <option value="">Seleccione...</option>
+                        <option value="m">Masculino</option>
+                        <option value="f">Femenino</option>
+                        <option value="o">Otro</option>
+                    </select>
+                </div>
+                <div class="buttons-group">
+                    <button type="submit" class="btn-submit">Registrar Dueño</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="form-wrapper">
+            <h2>Datos de tu Amigo Peludo 🐾</h2>
+            <form action="#" method="POST" class="flex-form-grid">
+                <div class="form-group">
+                    <label for="nombre-mascota">Nombre:</label>
+                    <input type="text" id="nombre-mascota" name="nombre-mascota" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="edad-mascota">Edad (años):</label>
+                    <input type="number" id="edad-mascota" name="edad-mascota" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="genero_mascota">Sexo:</label>
+                    <select id="genero_mascota" name="genero_mascota" required>
+                        <option value="">Seleccione...</option>
+                        <option value="m">Macho</option>
+                        <option value="f">Hembra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="raza">Raza:</label>
+                    <select id="raza" name="raza" required>
+                        <option value="">Seleccione...</option>
+                        <option value="persa">Persa</option>
+                        <option value="siames">Siamés</option>
+                        <option value="criollo">Criollo</option> 
+                    </select>
+                </div>
+                <div class="buttons-group full-width">
+                    <button type="submit" class="btn-submit">Registrar Mascota</button>
+                    <button type="reset" class="btn-reset">Limpiar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="form-wrapper">
+            <h2>Contáctanos 📬</h2>
+            <form action="#" method="POST" class="flex-form-mixto">
+                <div class="input-area">
+                    <div class="form-group">
+                        <label for="asunto">Asunto:</label>
+                        <input type="text" id="asunto" name="asunto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="buttons-group vertical-buttons">
+                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+</html>

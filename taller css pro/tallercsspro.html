@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro | Portafolio ADSO</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <input type="checkbox" id="sidebar-toggle" class="sr-only sidebar-toggle-input">
+    <label for="sidebar-toggle" class="sidebar-overlay"></label>
+    
+    <nav class="sidebar">
+        <ul class="sidebar_nav">
+            <li><a href="#sobre-mi">Sobre mí</a></li>
+            <li><a href="#proyectos">Proyectos ADSO</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <div class="header_logo">Leandro.dev</div>
+        <label for="sidebar-toggle" class="menu-btn" aria-label="Abrir menú">
+            <span class="menu-btn_line"></span>
+            <span class="menu-btn_line"></span>
+            <span class="menu-btn_line"></span>
+        </label>
+        <nav class="desktop-nav">
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#proyectos">Proyectos ADSO</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="sobre-mi" class="hero section-padding">
+            <div class="hero_bg"></div>
+            
+            <div class="hero_orb hero_orb--1"></div>
+            <div class="hero_orb hero_orb--2"></div>
+            <div class="hero_orb hero_orb--3"></div>
+            <div class="hero_orb hero_orb--4 animate-float"></div>
+
+            <div class="glass-card animate-scale-in">
+                <h1 class="glass-card_title">Hola, soy Leandro</h1>
+                <p class="glass-card_text">Tecnólogo en Análisis y Desarrollo de Software (ADSO) del SENA. Apasionado por la programación, la arquitectura de software y el desarrollo de interfaces modernas. Basado en Tuluá, Valle del Cauca.</p>
+            </div>
+        </section>
+
+        <section id="proyectos" class="projects section-padding">
+            <h2 class="section-title animate-slide-up">Mis Proyectos</h2>
+            
+            <div class="projects-grid">
+                
+                <div class="project-wrapper">
+                    <input type="checkbox" id="modal-1" class="sr-only modal-toggle">
+                    
+                    <article class="card animate-reveal-card delay-1">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Gestor Académico" class="card_image">
+                        <div class="card_body">
+                            <h3 class="card_title">Gestor Académico</h3>
+                            <p class="card_description">Plataforma educativa para aprendices SENA.</p>
+                            <label for="modal-1" class="btn">Ver detalles</label>
+                        </div>
+                    </article>
+
+                    <label for="modal-1" class="modal-overlay"></label>
+                    <div class="modal" role="dialog">
+                        <label for="modal-1" class="modal_close" aria-label="Cerrar">X</label>
+                        <h2 class="modal_title">Gestor Académico</h2>
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Preview" style="width:100%; border-radius:8px; margin-bottom:15px;">
+                        <p class="modal_description">Aplicación web completa diseñada para optimizar los procesos internos de los aprendices en Tuluá. Incluye arquitectura BEM y no usa JS para la UI.</p>
+                        <div class="modal_tags">
+                            <span class="card_tag">HTML Semántico</span>
+                            <span class="card_tag">CSS BEM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-wrapper">
+                    <input type="checkbox" id="modal-2" class="sr-only modal-toggle">
+                    
+                    <article class="card card--dark-mode animate-reveal-card delay-2">
+                        <img src="https://www.infobae.com/resizer/v2/KHHF37J3RFH3JIL5IX3N5WFQDU.png?auth=fdf02620aee15a8d8e6a228826cfd132054e0ff7db72db154fe330085a90a8c4&smart=true&width=350&height=209&quality=85" alt="Desastres Naturales" class="card_image">
+                        <div class="card_body">
+                            <h3 class="card_title">App Desastres Naturales</h3>
+                            <p class="card_description">Sistema de alertas tempranas y monitoreo.</p>
+                            <label for="modal-2" class="btn btn--accent">Ver detalles</label>
+                        </div>
+                    </article>
+
+                    <label for="modal-2" class="modal-overlay"></label>
+                    <div class="modal" role="dialog">
+                        <label for="modal-2" class="modal_close" aria-label="Cerrar">X</label>
+                        <h2 class="modal_title">App Desastres Naturales</h2>
+                        <img src="https://www.infobae.com/resizer/v2/KHHF37J3RFH3JIL5IX3N5WFQDU.png?auth=fdf02620aee15a8d8e6a228826cfd132054e0ff7db72db154fe330085a90a8c4&smart=true&width=350&height=209&quality=85" alt="Preview" style="width:100%; border-radius:8px; margin-bottom:15px;">
+                        <p class="modal_description">Inspirado en mi gusto por las películas de desastres naturales, creé esta interfaz conceptual para monitoreo global, mapeo de zonas de riesgo y emisión de alertas cívicas.</p>
+                        <div class="modal_tags">
+                            <span class="card_tag">UX/UI</span>
+                            <span class="card_tag">Animaciones CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-wrapper">
+                    <input type="checkbox" id="modal-3" class="sr-only modal-toggle">
+                    
+                    <article class="card animate-reveal-card delay-3">
+                        <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80" alt="E-commerce Smartwatches" class="card_image">
+                        <div class="card_body">
+                            <h3 class="card_title">E-commerce Temu-Clone</h3>
+                            <p class="card_description">Tienda virtual especializada en Smartwatches.</p>
+                            <label for="modal-3" class="btn">Ver detalles</label>
+                        </div>
+                    </article>
+
+                    <label for="modal-3" class="modal-overlay"></label>
+                    <div class="modal" role="dialog">
+                        <label for="modal-3" class="modal_close" aria-label="Cerrar">X</label>
+                        <h2 class="modal_title">E-commerce Smartwatches</h2>
+                        <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80" alt="Preview" style="width:100%; height:180px; object-fit:cover; border-radius:8px; margin-bottom:15px;">
+                        <p class="modal_description">Catálogo interactivo clon de e-commerce. Implementé un sistema de base de datos visual para mostrar específicamente estos dispositivos: <strong>Xiaomi Smart Band 9 Active, Redmi Watch 5 Lite, MT Smartwatch MTW KDS 1, Multitech MTW 2300 y Xiaomi Watch S4.</strong></p>
+                        <div class="modal_tags">
+                            <span class="card_tag">Grid Layout</span>
+                            <span class="card_tag">Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

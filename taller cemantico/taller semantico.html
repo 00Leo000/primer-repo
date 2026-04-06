@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal ADSO Tuluá</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <h1>Portal ADSO Tuluá</h1>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#noticias">Noticias</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#contactanos" class="nav-btn">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <section id="inicio" class="hero-section">
+            <div class="hero-content">
+                <h2>Conectando a los futuros desarrolladores</h2>
+                <p>El espacio definitivo para los aprendices del SENA. Descubre recursos sobre <strong>programación</strong>, mantente al día con las alertas tecnológicas y mejora tus habilidades de código.</p>
+                <a href="#noticias" class="btn btn-primary">Últimas Novedades</a>
+            </div>
+        </section>
+
+        <section id="noticias" class="news-section container">
+            <h2 class="section-title">Noticias Destacadas</h2>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="card-image bg-blue-1"></div>
+                    <div class="card-content">
+                        <h3>Nueva Arquitectura de Software</h3>
+                        <p>Se ha implementado un nuevo modelo de trabajo que promete hacer que nuestros aplicativos sean <em>mucho más escalables y eficientes</em>.</p>
+                        <a href="#" class="read-more">Leer la nota completa &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="card-image bg-blue-2"></div>
+                    <div class="card-content">
+                        <h3>Simulacro de Alertas Tempranas</h3>
+                        <p>Los aprendices presentarán sus sistemas de monitoreo para desastres naturales este viernes en el auditorio principal.</p>
+                        <a href="#" class="read-more">Leer la nota completa &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="eventos" class="events-section container">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <div class="events-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">Oct</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Bootcamp de HTML Semántico</h3>
+                        <p>Taller intensivo presencial. ¡Trae tu portátil!</p>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">22</span>
+                        <span class="month">Oct</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Feria Tecnológica y Adopción</h3>
+                        <p>Exposición de proyectos de software. Además, contaremos con un espacio pet-friendly para que asistas con tus gatos; ¡Miki es bienvenido!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contactanos" class="contact-section container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h2>Ponte en contacto</h2>
+                    <p>¿Tienes alguna duda sobre los programas, o quieres compartir un proyecto de desarrollo de software? Llena el formulario y nuestro equipo te responderá en breve.</p>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form action="#" method="POST" class="styled-form">
+                        
+                        <fieldset>
+                            <legend>Datos Personales</legend>
+                            
+                            <div class="form-group">
+                                <label for="nombre">Nombre completo:</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Leandro..." required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="email">Correo electrónico:</label>
+                                    <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+                                </div>
+                                <div class="form-group half">
+                                    <label for="telefono">Teléfono (Opcional):</label>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="+57...">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Detalles de tu consulta</legend>
+                            
+                            <div class="form-group">
+                                <label for="motivo">Motivo del mensaje:</label>
+                                <select id="motivo" name="motivo">
+                                    <option value="duda">Duda sobre un curso</option>
+                                    <option value="proyecto">Presentar un proyecto web</option>
+                                    <option value="soporte">Soporte técnico</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>¿Eres aprendiz activo?</label>
+                                <div class="radio-group">
+                                    <label class="radio-label"><input type="radio" name="aprendiz" value="si" checked> Sí</label>
+                                    <label class="radio-label"><input type="radio" name="aprendiz" value="no"> No</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mensaje">Tu mensaje:</label>
+                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe aquí todos los detalles..." required></textarea>
+                            </div>
+                        </fieldset>
+
+                        <button type="submit" class="btn btn-submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Portal ADSO Tuluá. Desarrollado con CSS y HTML Semántico.</p>
+            <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

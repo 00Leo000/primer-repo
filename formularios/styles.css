@@ -1,0 +1,183 @@
+/* Reset básico para consistencia */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #2c3e50;
+    line-height: 1.6;
+    background-image: url('https://img.freepik.com/fotos-premium/gatos-nieve-cerca-tuberia-estufa-caliente_1253912-3451.jpg?semt=ais_user_personalization&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.main-header {
+    background-color: rgba(44, 62, 80, 0.95);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* --- CONTENEDOR PRINCIPAL FLEXBOX --- */
+.main-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: flex-start; /* Alinea los formularios arriba */
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+/* Estilo general de las tarjetas */
+.form-wrapper {
+    background: rgba(255, 255, 255, 0.95); /* Fondo semitransparente */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    flex: 1 1 320px; /* Flexbox: crecen, se encogen, ancho base 320px */
+    max-width: 450px;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: #0a0f38;
+    text-align: center;
+    border-bottom: 3px solid #36c5df;
+    padding-bottom: 0.5rem;
+}
+
+/* ========================================================
+   DISEÑOS ÚNICOS CON FLEXBOX (Cumple Paso 3 del Taller)
+======================================================== */
+
+/* 1. FORMULARIO EN COLUMNA (Tradicional) */
+.flex-form-columna {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 2. FORMULARIO EN CUADRÍCULA (Flex Wrap) */
+.flex-form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+/* Los inputs de la cuadrícula toman el 48% del espacio para quedar lado a lado */
+.flex-form-grid .form-group {
+    flex: 1 1 48%; 
+    min-width: 140px;
+}
+.flex-form-grid .full-width {
+    flex: 1 1 100%;
+}
+
+/* 3. FORMULARIO MIXTO (Inputs a un lado, botón abajo/alargado) */
+.flex-form-mixto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ======================================================== */
+
+/* Estilos de inputs comunes */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+input, select, textarea {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #36c5df;
+    outline: none;
+    box-shadow: 0 0 5px rgba(54, 197, 223, 0.4);
+}
+
+/* Contenedor de Botones con Flexbox */
+.buttons-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.vertical-buttons {
+    flex-direction: column;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.1s;
+    flex: 1; /* Para que ocupen el ancho parejo */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-submit {
+    background-color: #36c5df;
+    color: white;
+}
+.btn-submit:hover {
+    background-color: #29d6ec;
+}
+
+.btn-reset {
+    background-color: #596086;
+    color: white;
+}
+.btn-reset:hover {
+    background-color: #3f445e;
+}
+
+/* --- PASO 4: RESPONSIVIDAD (MEDIA QUERIES) --- */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Apila las tarjetas una sobre otra */
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Rompe la cuadrícula en móviles para que sea una sola columna */
+    .flex-form-grid .form-group {
+        flex: 1 1 100%; 
+    }
+}
