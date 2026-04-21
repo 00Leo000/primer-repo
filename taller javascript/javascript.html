@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Finanzas Personales</title>
+  <style>
+    /* Estilos adaptados con paleta azul pastel */
+    body { 
+      font-family: sans-serif; 
+      max-width: 480px;
+      margin: 40px auto; 
+      padding: 20px; 
+      background: #EAF2F8; /* Fondo azul pastel muy claro */
+    }
+    h1 {
+      color: #2980B9; /* Azul principal */
+      text-align: center; 
+    }
+    .card { 
+      background: #FFFFFF; 
+      border-radius: 12px;
+      padding: 20px; 
+      margin-bottom: 16px;
+      box-shadow: 0 4px 10px rgba(41, 128, 185, 0.1); 
+      border: 1px solid #D6EAF8; /* Borde azul suave */
+    }
+    label {
+      color: #34495E;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    input { 
+      width: 100%; 
+      padding: 10px; 
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #AED6F1; /* Borde de input azul pastel */
+      border-radius: 8px;
+      font-size: 16px; 
+      box-sizing: border-box;
+      background-color: #F9FCFF;
+    }
+    button { 
+      width: 100%; 
+      padding: 14px;
+      margin-top: 8px;
+      background: #5DADE2; /* Botón azul pastel */
+      color: white; 
+      border: none;
+      border-radius: 8px; 
+      font-size: 16px; 
+      font-weight: bold;
+      cursor: pointer; 
+      transition: background 0.3s ease;
+    }
+    button:hover { 
+      background: #3498DB; /* Azul ligeramente más oscuro al pasar el cursor */
+    }
+    #panel-resultado { 
+      display: none; /* Oculto al inicio */
+      text-align: center;
+    }
+    #saldo-display {
+      font-size: 42px; 
+      font-weight: bold;
+      margin: 10px 0; 
+    }
+    #estado-texto {
+      font-size: 18px; 
+      margin-bottom: 5px;
+    }
+    #consejo-texto {
+      font-size: 14px;
+      color: #7F8C8D;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mi Simulador de Finanzas</h1>
+
+  <div class="card">
+    <label>Ingreso mensual ($)</label>
+    <input id="inp-ingreso" type="number" placeholder="Ej: 2000">
+
+    <label>Gastos mensuales ($)</label>
+    <input id="inp-gasto" type="number" placeholder="Ej: 1200">
+
+    <button id="btn-calcular">Calcular mi saldo</button>
+  </div>
+
+  <div class="card" id="panel-resultado">
+    <p id="estado-texto"></p>
+    <div id="saldo-display"></div>
+    <p id="consejo-texto"></p>
+  </div>
+
+  <script>
+    // Módulo 1: constantes y función
+    const META_AHORRO = 500;
+
+    function calcularSaldo(ingreso, gasto) {
+      return ingreso - gasto;
+    }
+
+    // Módulo 2: lógica del semáforo
+    function obtenerEstado(saldo) {
+      if (saldo > META_AHORRO * 4) {
+        return { emoji: '🚀', msg: '¡Modo inversión!', color: '#2980B9', consejo: 'Considera invertir tu excedente.' };
+      }
+      if (saldo > META_AHORRO) {
+        return { emoji: '🌟', msg: 'Excelente salud', color: '#5DADE2', consejo: 'Vas muy bien. Mantén ese ritmo.' };
+      }
+      if (saldo > 0) {
+        return { emoji: '⚠️', msg: 'Cuidado, ajustado', color: '#F39C12', consejo: 'Revisa qué gastos puedes reducir.' };
+      }
+      return { emoji: '🚨', msg: 'Gastos exceden ingresos', color: '#E74C3C', consejo: 'Urgente: reduce gastos o busca ingresos extra.' };
+    }
+
+    // Módulo 3: eventos y DOM
+    document.getElementById('btn-calcular').addEventListener('click', function () {
+      
+      // Leer y convertir valores asegurando que sean números usando Number()
+      const ingreso = Number(document.getElementById('inp-ingreso').value);
+      const gasto = Number(document.getElementById('inp-gasto').value);
+
+      // Validación básica
+      if (ingreso === 0 && gasto === 0) {
+        alert('Por favor ingresa al menos un valor.');
+        return;
+      }
+
+      // Calcular y evaluar
+      const saldo = calcularSaldo(ingreso, gasto);
+      const estado = obtenerEstado(saldo);
+
+      // Actualizar el DOM
+      const panel = document.getElementById('panel-resultado');
+      panel.style.display = 'block';
+
+      document.getElementById('saldo-display').innerHTML = '$' + saldo;
+      document.getElementById('saldo-display').style.color = estado.color;
+      document.getElementById('estado-texto').innerHTML = estado.emoji + ' ' + estado.msg;
+      document.getElementById('consejo-texto').innerHTML = estado.consejo;
+    });
+  </script>
+</body>
+</html>
