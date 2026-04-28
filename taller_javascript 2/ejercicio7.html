@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Termómetro de Colores</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; transition: background 0.5s; background: #EBF5FB; color: #154360; }
+        input { padding: 12px; font-size: 22px; width: 180px; text-align: center; border: 2px solid #AED6F1; border-radius: 10px; }
+        button { padding: 12px 24px; background: #5DADE2; border-radius: 10px; font-size: 18px; margin-left: 8px; color: white; border: none; cursor: pointer; }
+        #resultado-clima { font-size: 32px; font-weight: bold; margin-top: 28px; }
+    </style>
+</head>
+<body>
+    <h2>¿Cómo está el clima hoy?</h2>
+    <input id="inp-temp" type="number" placeholder="Temperatura en °C">
+    <button onclick="evaluarClima()">Evaluar clima</button>
+    <div id="resultado-clima"></div>
+
+    <script>
+        function evaluarClima() { // [cite: 344]
+            const temp = Number(document.getElementById("inp-temp").value); // [cite: 345]
+            const resultado = document.getElementById("resultado-clima"); // [cite: 346]
+            
+            if (temp > 35) { // [cite: 350]
+                resultado.innerHTML = "🔥 Calor extremo: " + temp + "°C"; // [cite: 352]
+                resultado.style.color = "#E74C3C"; // [cite: 354]
+                document.body.style.background = "#FADBD8"; // [cite: 355]
+            } else if (temp > 25) { // [cite: 356]
+                resultado.innerHTML = "☀️ Calor agradable: " + temp + "°C"; // [cite: 357]
+                resultado.style.color = "#E67E22"; // [cite: 358]
+                document.body.style.background = "#FDEBD0"; // [cite: 359]
+            } else if (temp > 15) { // [cite: 360]
+                resultado.innerHTML = "⛅ Templado: " + temp + "°C"; // [cite: 364]
+                resultado.style.color = "#27AE60"; // [cite: 365]
+                document.body.style.background = "#D4EFDF"; // [cite: 366]
+            } else if (temp > 0) { // [cite: 367]
+                resultado.innerHTML = "❄️ Frío: " + temp + "°C"; // [cite: 371]
+                resultado.style.color = "#2980B9"; // [cite: 372]
+                document.body.style.background = "#D6EAF8"; // [cite: 373]
+            } else { // [cite: 374]
+                resultado.innerHTML = "🧊 Bajo cero: " + temp + "°C"; // [cite: 376]
+                resultado.style.color = "#8E44AD"; // [cite: 378]
+                document.body.style.background = "#EBDEF0"; // [cite: 379]
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Adivina el Número</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; background: #EBF5FB; color: #154360; }
+        input { padding: 12px; font-size: 24px; width: 120px; text-align: center; border: 2px solid #AED6F1; border-radius: 10px; }
+        button { 
+            padding: 12px 24px; background: #3498DB; border-radius: 10px; font-size: 18px; 
+            margin-left: 8px; color: white; border: none; cursor: pointer; 
+        }
+        #feedback { font-size: 28px; margin-top: 28px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Adivina el Número Secreto (del 1 al 10)</h2>
+    <input id="inp-numero" type="number" min="1" max="10" placeholder="Tu apuesta">
+    <button onclick="adivinar()">¡Adivinar!</button>
+    <div id="feedback"></div>
+
+    <script>
+        const NUMERO_SECRETO = 7; // [cite: 292]
+        
+        function adivinar() { // [cite: 293]
+            const intento = Number(document.getElementById("inp-numero").value); // [cite: 294]
+            const feedback = document.getElementById("feedback"); // [cite: 295]
+            
+            if (intento === NUMERO_SECRETO) { // [cite: 297]
+                feedback.innerHTML = "✨ ¡¡CORRECTO!! ¡Adivinaste el " + NUMERO_SECRETO + "!"; // [cite: 302]
+                feedback.style.color = "#2874A6";
+                feedback.style.fontSize = "40px"; // [cite: 304]
+            } else if (intento < NUMERO_SECRETO) { // [cite: 306]
+                feedback.innerHTML = "🔥 ¡Más caliente! El número es mayor"; // [cite: 310]
+                feedback.style.color = "#E67E22";
+                feedback.style.fontSize = "24px"; // [cite: 312]
+            } else { // [cite: 314]
+                feedback.innerHTML = "❄️ ¡Más frío! El número es menor"; // [cite: 315]
+                feedback.style.color = "#3498DB";
+                feedback.style.fontSize = "24px"; // [cite: 317]
+            }
+        }
+    </script>
+</body>
+</html>

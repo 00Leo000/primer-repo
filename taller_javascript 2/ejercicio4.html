@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Canina</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; background: #EBF5FB; color: #154360; } /* [cite: 171] */
+        input { padding: 12px; font-size: 20px; width: 200px; border: 2px solid #AED6F1; border-radius: 10px; } /* [cite: 173] */
+        button { 
+            padding: 12px 24px; font-size: 18px; margin-left: 10px; background: #3498DB; 
+            border-radius: 10px; color: white; border: none; cursor: pointer; /* [cite: 175, 178] */
+        }
+        #resultado { font-size: 28px; margin-top: 24px; font-weight: bold; color: #2874A6; } /* [cite: 179] */
+    </style>
+</head>
+<body>
+    <h2>¿Cuántos años tienes en años perro?</h2>
+    <input id="edad-humana" type="number" placeholder="Tu edad en años" min="1" max="100">
+    <button onclick="calcularEdadCanina()">Calcular</button>
+    <div id="resultado"></div>
+
+    <script>
+        const FACTOR_CANINO = 7; // [cite: 184]
+        
+        function calcularEdadCanina() { // [cite: 185]
+            const valorTexto = document.getElementById("edad-humana").value; // [cite: 187]
+            const edadHumana = Number(valorTexto); // [cite: 191]
+            
+            if (edadHumana <= 0 || valorTexto === "") { // [cite: 192]
+                document.getElementById("resultado").innerHTML = "⚠️ Por favor escribe tu edad válida"; // [cite: 195]
+                return; // [cite: 196]
+            }
+            
+            const edadCanina = edadHumana * FACTOR_CANINO; // [cite: 198]
+            document.getElementById("resultado").innerHTML = "En años perro tienes: " + edadCanina + " años 🐶"; // [cite: 201]
+        }
+    </script>
+</body>
+</html>

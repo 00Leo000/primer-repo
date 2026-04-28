@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora con IVA</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; max-width: 480px; margin: auto; background: #EBF5FB; color: #154360; }
+        input { padding: 12px; font-size: 18px; width: 220px; border: 2px solid #AED6F1; border-radius: 10px; }
+        button { padding: 12px 24px; font-size: 18px; margin-top: 15px; background: #2874A6; color: white; border: none; border-radius: 10px; cursor: pointer; display: block; width: 100%; } 
+        .linea { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #AED6F1; font-size: 18px; } 
+        .total { font-weight: bold; font-size: 22px; color: #2874A6; border-bottom: none; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Calculadora de Precios</h2>
+    <label>Precio base ($):</label><br>
+    <input id="inp-precio" type="number" placeholder="Ej: 50000" min="0">
+    <button onclick="calcularConIVA()">Calcular con IVA 19%</button>
+    <div id="desglose" style="margin-top: 20px; background: white; border-radius: 10px; padding: 10px;"></div>
+
+    <script>
+        const TASA_IVA = 0.19; // [cite: 462]
+        
+        function calcularConIVA() { // [cite: 463]
+            const precioBase = Number(document.getElementById("inp-precio").value); // [cite: 464, 465]
+            
+            if (precioBase <= 0) { // [cite: 467]
+                alert("Por favor ingresa un precio mayor a 0"); // [cite: 468]
+                return;
+            }
+            
+            const valorIVA = precioBase * TASA_IVA; // [cite: 470]
+            const precioTotal = precioBase + valorIVA; // [cite: 471]
+            
+            const baseFormateada = precioBase.toFixed(2); // [cite: 473]
+            const ivaFormateado = valorIVA.toFixed(2); // [cite: 474, 475]
+            const totalFormateado = precioTotal.toFixed(2); // [cite: 476]
+            
+            document.getElementById("desglose").innerHTML = 
+                '<div class="linea"><span>Precio base:</span><span>$' + baseFormateada + '</span></div>' + // [cite: 479]
+                '<div class="linea"><span>IVA (19%):</span><span>$' + ivaFormateado + '</span></div>' + // [cite: 480, 484, 485]
+                '<div class="linea total"><span>TOTAL:</span><span>$' + totalFormateado + '</span></div>'; // [cite: 482, 486]
+        }
+    </script>
+</body>
+</html>

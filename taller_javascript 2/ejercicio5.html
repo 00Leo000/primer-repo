@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Acceso</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; background: #EBF5FB; color: #154360; }
+        input { padding: 12px; font-size: 18px; width: 260px; border: 2px solid #AED6F1; border-radius: 10px; }
+        button { 
+            padding: 12px 24px; background: #5DADE2; border-radius: 10px; font-size: 18px; 
+            margin-left: 8px; color: white; border: none; cursor: pointer; 
+        }
+        #mensaje-acceso { font-size: 26px; font-weight: bold; margin-top: 28px; padding: 20px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <h2>Control de Acceso</h2>
+    <input id="inp-nombre" type="text" placeholder="Escribe tu nombre">
+    <button onclick="validarAcceso()">Verificar acceso</button>
+    <div id="mensaje-acceso"></div>
+
+    <script>
+        const NOMBRE_PERMITIDO = "Admin"; // [cite: 234]
+        
+        function validarAcceso() {
+            const nombreEscrito = document.getElementById("inp-nombre").value; // [cite: 237]
+            const mensajeDiv = document.getElementById("mensaje-acceso"); // [cite: 239]
+            
+            if (nombreEscrito === NOMBRE_PERMITIDO) { // [cite: 242]
+                mensajeDiv.innerHTML = "✅ Bienvenido, " + nombreEscrito + "!"; // [cite: 253, 254]
+                mensajeDiv.style.background = "#D4EFDF"; // Verde pastel [cite: 255]
+                mensajeDiv.style.color = "#145A32"; // [cite: 256]
+                mensajeDiv.style.border = "2px solid #27AE60"; // [cite: 257]
+            } else { // [cite: 245]
+                mensajeDiv.innerHTML = "❌ Acceso Denegado"; // [cite: 258]
+                mensajeDiv.style.background = "#FADBD8"; // Rojo pastel [cite: 261]
+                mensajeDiv.style.color = "#7B241C"; // [cite: 262]
+                mensajeDiv.style.border = "2px solid #E74C3C"; // [cite: 263]
+            }
+        }
+    </script>
+</body>
+</html>

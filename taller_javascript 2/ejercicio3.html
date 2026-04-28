@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Interruptor de Luz</title>
+    <style>
+        body { 
+            font-family: sans-serif; text-align: center; padding: 60px; 
+            transition: background 0.4s, color 0.4s; background: #EBF5FB; color: #154360; 
+        }
+        button { 
+            padding: 14px 28px; font-size: 18px; margin-top: 20px; border: none; 
+            border-radius: 12px; cursor: pointer; background: #5DADE2; color: white;
+        }
+    </style>
+</head>
+<body id="sala">
+    <h2 id="estado-texto">Luz Encendida</h2>
+    <div id="bombillo" style="font-size:100px">💡</div>
+    <button id="btn-luz" onclick="toggleLuz()">Apagar</button>
+
+    <script>
+        let luzEncendida = true; // [cite: 120]
+        function toggleLuz() { // [cite: 121]
+            const sala = document.getElementById("sala"); // [cite: 123]
+            const texto = document.getElementById("estado-texto");
+            const bombillo = document.getElementById("bombillo"); // [cite: 127]
+            const boton = document.getElementById("btn-luz");
+            
+            if (luzEncendida) { // [cite: 128]
+                sala.style.backgroundColor = "#154360"; // Azul muy oscuro para apagado [cite: 130]
+                sala.style.color = "#EBF5FB"; // [cite: 131]
+                texto.innerHTML = "Luz Apagada"; // [cite: 134]
+                bombillo.innerHTML = "🌙";
+                boton.innerHTML = "Encender"; // [cite: 137]
+                luzEncendida = false; // [cite: 138]
+            } else { // [cite: 139]
+                sala.style.backgroundColor = "#EBF5FB"; // Azul pastel brillante [cite: 141]
+                sala.style.color = "#154360"; // [cite: 143]
+                texto.innerHTML = "Luz Encendida"; // [cite: 145]
+                bombillo.innerHTML = "💡";
+                boton.innerHTML = "Apagar"; // [cite: 149]
+                luzEncendida = true; // [cite: 150]
+            }
+        }
+    </script>
+</body>
+</html>

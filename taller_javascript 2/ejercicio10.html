@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Escondite Mágico</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; background: #EBF5FB; color: #154360; }
+        button { padding: 14px 24px; font-size: 18px; margin: 6px; border: none; border-radius: 12px; cursor: pointer; background: #5DADE2; color: white; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">¡Ahora lo ves, ahora no lo ves!</h2>
+    <div id="objeto-magico" style="font-size:100px; text-align:center; margin: 20px;">
+        🐇
+    </div>
+    <div style="text-align:center">
+        <button onclick="esconder()">Esconder</button>
+        <button onclick="mostrar()">Mostrar</button>
+        <button onclick="alternar()">Alternar</button>
+    </div>
+    <p id="estado-msg" style="text-align:center; font-size:20px; font-weight: bold;"></p>
+
+    <script>
+        let estaVisible = true; // [cite: 517]
+        
+        function esconder() { // [cite: 518]
+            document.getElementById("objeto-magico").style.display = "none"; // [cite: 520]
+            document.getElementById("estado-msg").innerHTML = "¡Desapareció!"; // [cite: 521]
+            estaVisible = false;
+        }
+        
+        function mostrar() { // [cite: 522]
+            document.getElementById("objeto-magico").style.display = "block"; // [cite: 524]
+            document.getElementById("estado-msg").innerHTML = "¡Apareció!";
+            estaVisible = true;
+        }
+        
+        function alternar() { // [cite: 525]
+            if (estaVisible) { // [cite: 526]
+                esconder(); // [cite: 527]
+            } else {
+                mostrar(); // [cite: 528]
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Notas</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; max-width: 600px; margin: auto; background: #EBF5FB; color: #154360; }
+        input { padding: 10px; font-size: 16px; border: 2px solid #AED6F1; border-radius: 8px; width: 300px; }
+        button { padding: 10px 20px; font-size: 16px; margin-left: 8px; border: none; border-radius: 8px; cursor: pointer; background: #5DADE2; color: white;}
+        #libreta { margin-top: 24px; }
+        .nota { background: #D6EAF8; border-left: 4px solid #3498DB; padding: 12px; margin-bottom: 10px; border-radius: 0 8px 8px 0; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Generador de Notas</h2>
+    <div style="text-align: center;">
+        <input id="inp-texto" type="text" placeholder="Escribe una nota...">
+        <button onclick="agregarNota()">Agregar nota +</button>
+        <button onclick="borrarTodo()" style="background: #E74C3C;">Borrar todo</button>
+    </div>
+    <div id="libreta"></div>
+
+    <script>
+        let contadorNotas = 0; // [cite: 407]
+        
+        function agregarNota() { // [cite: 408]
+            const texto = document.getElementById("inp-texto").value; // [cite: 410]
+            if (texto === "") { // [cite: 412]
+                alert("Escribe algo antes de agregar la nota"); // [cite: 413]
+                return; // [cite: 414]
+            }
+            
+            contadorNotas = contadorNotas + 1; // [cite: 417, 418]
+            const nuevaNota = '<div class="nota"><strong>Nota #' + contadorNotas + ':</strong> ' + texto + '</div>'; // [cite: 420, 421, 422]
+            
+            document.getElementById("libreta").innerHTML += nuevaNota; // [cite: 424]
+            document.getElementById("inp-texto").value = ""; // [cite: 426]
+        }
+        
+        function borrarTodo() { // [cite: 427]
+            document.getElementById("libreta").innerHTML = ""; // [cite: 428]
+            contadorNotas = 0; // [cite: 429]
+        }
+    </script>
+</body>
+</html>

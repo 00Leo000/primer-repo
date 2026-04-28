@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cambiador de Ánimo</title>
+    <style>
+        body {
+            font-family: sans-serif; text-align: center; padding: 60px;
+            background: #D6EAF8; transition: background 0.5s; color: #154360;
+        }
+        #emoji { font-size: 100px; }
+        button {
+            padding: 14px 28px; font-size: 18px; border: none; background: #5DADE2; color: white;
+            border-radius: 12px; cursor: pointer; margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="emoji">💧</div>
+    <p id="mensaje">Hoy no es mi mejor día...</p>
+    <button onclick="cambiarAnimo()">¡Anímame!</button>
+
+    <script>
+        let estaFeliz = false; // [cite: 45]
+        function cambiarAnimo() { // [cite: 46]
+            const emojiDiv = document.getElementById("emoji"); // [cite: 47]
+            const mensajeP = document.getElementById("mensaje");
+            
+            if (estaFeliz === false) { // [cite: 49]
+                document.body.style.background = "#FEF9E7"; // Amarillo suave
+                emojiDiv.innerHTML = "✨"; // [cite: 53]
+                mensajeP.innerHTML = "¡Hoy va a ser un gran día!"; // [cite: 55]
+                estaFeliz = true; // [cite: 56]
+            } else {
+                document.body.style.background = "#D6EAF8"; // Azul pastel
+                emojiDiv.innerHTML = "💧";
+                mensajeP.innerHTML = "Hoy no es mi mejor día..."; // [cite: 63]
+                estaFeliz = false; // [cite: 62]
+            }
+        }
+    </script>
+</body>
+</html>
