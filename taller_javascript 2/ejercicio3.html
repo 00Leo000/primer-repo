@@ -20,27 +20,27 @@
     <button id="btn-luz" onclick="toggleLuz()">Apagar</button>
 
     <script>
-        let luzEncendida = true; // [cite: 120]
-        function toggleLuz() { // [cite: 121]
-            const sala = document.getElementById("sala"); // [cite: 123]
+        let luzEncendida = true;
+        function toggleLuz() {
+            const sala = document.getElementById("sala");
             const texto = document.getElementById("estado-texto");
-            const bombillo = document.getElementById("bombillo"); // [cite: 127]
+            const bombillo = document.getElementById("bombillo");
             const boton = document.getElementById("btn-luz");
             
-            if (luzEncendida) { // [cite: 128]
-                sala.style.backgroundColor = "#154360"; // Azul muy oscuro para apagado [cite: 130]
-                sala.style.color = "#EBF5FB"; // [cite: 131]
-                texto.innerHTML = "Luz Apagada"; // [cite: 134]
+            if (luzEncendida) {
+                sala.style.backgroundColor = "#154360"; // Azul muy oscuro para apagado
+                sala.style.color = "#EBF5FB";
+                texto.innerHTML = "Luz Apagada";
                 bombillo.innerHTML = "🌙";
-                boton.innerHTML = "Encender"; // [cite: 137]
-                luzEncendida = false; // [cite: 138]
-            } else { // [cite: 139]
-                sala.style.backgroundColor = "#EBF5FB"; // Azul pastel brillante [cite: 141]
-                sala.style.color = "#154360"; // [cite: 143]
-                texto.innerHTML = "Luz Encendida"; // [cite: 145]
+                boton.innerHTML = "Encender";
+                luzEncendida = false;
+            } else {
+                sala.style.backgroundColor = "#EBF5FB"; // Azul pastel brillante
+                sala.style.color = "#154360";
+                texto.innerHTML = "Luz Encendida";
                 bombillo.innerHTML = "💡";
-                boton.innerHTML = "Apagar"; // [cite: 149]
-                luzEncendida = true; // [cite: 150]
+                boton.innerHTML = "Apagar";
+                luzEncendida = true;
             }
         }
     </script>

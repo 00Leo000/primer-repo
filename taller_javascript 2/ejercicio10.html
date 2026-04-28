@@ -21,25 +21,25 @@
     <p id="estado-msg" style="text-align:center; font-size:20px; font-weight: bold;"></p>
 
     <script>
-        let estaVisible = true; // [cite: 517]
+        let estaVisible = true;
         
-        function esconder() { // [cite: 518]
-            document.getElementById("objeto-magico").style.display = "none"; // [cite: 520]
-            document.getElementById("estado-msg").innerHTML = "¡Desapareció!"; // [cite: 521]
+        function esconder() {
+            document.getElementById("objeto-magico").style.display = "none";
+            document.getElementById("estado-msg").innerHTML = "¡Desapareció!";
             estaVisible = false;
         }
         
-        function mostrar() { // [cite: 522]
-            document.getElementById("objeto-magico").style.display = "block"; // [cite: 524]
+        function mostrar() {
+            document.getElementById("objeto-magico").style.display = "block";
             document.getElementById("estado-msg").innerHTML = "¡Apareció!";
             estaVisible = true;
         }
         
-        function alternar() { // [cite: 525]
-            if (estaVisible) { // [cite: 526]
-                esconder(); // [cite: 527]
+        function alternar() {
+            if (estaVisible) {
+                esconder();
             } else {
-                mostrar(); // [cite: 528]
+                mostrar(); 
             }
         }
     </script>

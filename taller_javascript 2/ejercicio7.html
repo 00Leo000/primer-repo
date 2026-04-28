@@ -17,30 +17,30 @@
     <div id="resultado-clima"></div>
 
     <script>
-        function evaluarClima() { // [cite: 344]
-            const temp = Number(document.getElementById("inp-temp").value); // [cite: 345]
-            const resultado = document.getElementById("resultado-clima"); // [cite: 346]
+        function evaluarClima() {
+            const temp = Number(document.getElementById("inp-temp").value);
+            const resultado = document.getElementById("resultado-clima");
             
-            if (temp > 35) { // [cite: 350]
-                resultado.innerHTML = "🔥 Calor extremo: " + temp + "°C"; // [cite: 352]
-                resultado.style.color = "#E74C3C"; // [cite: 354]
-                document.body.style.background = "#FADBD8"; // [cite: 355]
-            } else if (temp > 25) { // [cite: 356]
-                resultado.innerHTML = "☀️ Calor agradable: " + temp + "°C"; // [cite: 357]
-                resultado.style.color = "#E67E22"; // [cite: 358]
-                document.body.style.background = "#FDEBD0"; // [cite: 359]
-            } else if (temp > 15) { // [cite: 360]
-                resultado.innerHTML = "⛅ Templado: " + temp + "°C"; // [cite: 364]
-                resultado.style.color = "#27AE60"; // [cite: 365]
-                document.body.style.background = "#D4EFDF"; // [cite: 366]
-            } else if (temp > 0) { // [cite: 367]
-                resultado.innerHTML = "❄️ Frío: " + temp + "°C"; // [cite: 371]
-                resultado.style.color = "#2980B9"; // [cite: 372]
-                document.body.style.background = "#D6EAF8"; // [cite: 373]
-            } else { // [cite: 374]
-                resultado.innerHTML = "🧊 Bajo cero: " + temp + "°C"; // [cite: 376]
-                resultado.style.color = "#8E44AD"; // [cite: 378]
-                document.body.style.background = "#EBDEF0"; // [cite: 379]
+            if (temp > 35) {
+                resultado.innerHTML = "🔥 Calor extremo: " + temp + "°C";
+                resultado.style.color = "#E74C3C";
+                document.body.style.background = "#FADBD8";
+            } else if (temp > 25) {
+                resultado.innerHTML = "☀️ Calor agradable: " + temp + "°C";
+                resultado.style.color = "#E67E22";
+                document.body.style.background = "#FDEBD0";
+            } else if (temp > 15) {
+                resultado.innerHTML = "⛅ Templado: " + temp + "°C";
+                resultado.style.color = "#27AE60";
+                document.body.style.background = "#D4EFDF";
+            } else if (temp > 0) {
+                resultado.innerHTML = "❄️ Frío: " + temp + "°C";
+                resultado.style.color = "#2980B9";
+                document.body.style.background = "#D6EAF8";
+            } else {
+                resultado.innerHTML = "🧊 Bajo cero: " + temp + "°C";
+                resultado.style.color = "#8E44AD";
+                document.body.style.background = "#EBDEF0";
             }
         }
     </script>

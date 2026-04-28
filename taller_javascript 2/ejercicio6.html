@@ -20,24 +20,24 @@
     <div id="feedback"></div>
 
     <script>
-        const NUMERO_SECRETO = 7; // [cite: 292]
+        const NUMERO_SECRETO = 7;
         
-        function adivinar() { // [cite: 293]
-            const intento = Number(document.getElementById("inp-numero").value); // [cite: 294]
-            const feedback = document.getElementById("feedback"); // [cite: 295]
+        function adivinar() {
+            const intento = Number(document.getElementById("inp-numero").value);
+            const feedback = document.getElementById("feedback");
             
-            if (intento === NUMERO_SECRETO) { // [cite: 297]
-                feedback.innerHTML = "✨ ¡¡CORRECTO!! ¡Adivinaste el " + NUMERO_SECRETO + "!"; // [cite: 302]
+            if (intento === NUMERO_SECRETO) {
+                feedback.innerHTML = "✨ ¡¡CORRECTO!! ¡Adivinaste el " + NUMERO_SECRETO + "!";
                 feedback.style.color = "#2874A6";
-                feedback.style.fontSize = "40px"; // [cite: 304]
-            } else if (intento < NUMERO_SECRETO) { // [cite: 306]
-                feedback.innerHTML = "🔥 ¡Más caliente! El número es mayor"; // [cite: 310]
+                feedback.style.fontSize = "40px";
+            } else if (intento < NUMERO_SECRETO) {
+                feedback.innerHTML = "🔥 ¡Más caliente! El número es mayor";
                 feedback.style.color = "#E67E22";
-                feedback.style.fontSize = "24px"; // [cite: 312]
-            } else { // [cite: 314]
-                feedback.innerHTML = "❄️ ¡Más frío! El número es menor"; // [cite: 315]
+                feedback.style.fontSize = "24px";
+            } else {
+                feedback.innerHTML = "❄️ ¡Más frío! El número es menor";
                 feedback.style.color = "#3498DB";
-                feedback.style.fontSize = "24px"; // [cite: 317]
+                feedback.style.fontSize = "24px";
             }
         }
     </script>

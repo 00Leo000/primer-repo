@@ -19,21 +19,21 @@
     <button onclick="reiniciar()">Reiniciar</button>
 
     <script>
-        let puntaje = 0; // [cite: 84]
+        let puntaje = 0;
         function sumarPunto() {
-            puntaje = puntaje + 1; // [cite: 87]
-            document.getElementById("marcador").innerHTML = puntaje; // [cite: 89]
+            puntaje = puntaje + 1;
+            document.getElementById("marcador").innerHTML = puntaje;
             
-            if (puntaje === 10) { // [cite: 90]
-                document.getElementById("marcador").style.color = "#1ABC9C"; // Verde esmeralda [cite: 92]
-                alert("¡Alcanzaste 10 puntos!"); // [cite: 93]
+            if (puntaje === 10) {
+                document.getElementById("marcador").style.color = "#1ABC9C"; // Verde esmeralda
+                alert("¡Alcanzaste 10 puntos!");
             }
         }
-        function reiniciar() { // [cite: 94]
-            puntaje = 0; // [cite: 96]
-            const marcador = document.getElementById("marcador"); // [cite: 97]
-            marcador.innerHTML = 0; // [cite: 98]
-            marcador.style.color = "#2874A6"; // [cite: 101]
+        function reiniciar() {
+            puntaje = 0;
+            const marcador = document.getElementById("marcador");
+            marcador.innerHTML = 0;
+            marcador.style.color = "#2874A6";
         }
     </script>
 </body>

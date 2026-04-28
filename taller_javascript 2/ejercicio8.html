@@ -21,25 +21,25 @@
     <div id="libreta"></div>
 
     <script>
-        let contadorNotas = 0; // [cite: 407]
+        let contadorNotas = 0;
         
-        function agregarNota() { // [cite: 408]
-            const texto = document.getElementById("inp-texto").value; // [cite: 410]
-            if (texto === "") { // [cite: 412]
-                alert("Escribe algo antes de agregar la nota"); // [cite: 413]
-                return; // [cite: 414]
+        function agregarNota() {
+            const texto = document.getElementById("inp-texto").value;
+            if (texto === "") {
+                alert("Escribe algo antes de agregar la nota");
+                return;
             }
             
-            contadorNotas = contadorNotas + 1; // [cite: 417, 418]
-            const nuevaNota = '<div class="nota"><strong>Nota #' + contadorNotas + ':</strong> ' + texto + '</div>'; // [cite: 420, 421, 422]
+            contadorNotas = contadorNotas + 1;
+            const nuevaNota = '<div class="nota"><strong>Nota #' + contadorNotas + ':</strong> ' + texto + '</div>';
             
-            document.getElementById("libreta").innerHTML += nuevaNota; // [cite: 424]
-            document.getElementById("inp-texto").value = ""; // [cite: 426]
+            document.getElementById("libreta").innerHTML += nuevaNota;
+            document.getElementById("inp-texto").value = "";
         }
         
-        function borrarTodo() { // [cite: 427]
-            document.getElementById("libreta").innerHTML = ""; // [cite: 428]
-            contadorNotas = 0; // [cite: 429]
+        function borrarTodo() {
+            document.getElementById("libreta").innerHTML = "";
+            contadorNotas = 0;
         }
     </script>
 </body>

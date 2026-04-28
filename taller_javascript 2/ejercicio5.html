@@ -20,22 +20,22 @@
     <div id="mensaje-acceso"></div>
 
     <script>
-        const NOMBRE_PERMITIDO = "Admin"; // [cite: 234]
+        const NOMBRE_PERMITIDO = "Admin";
         
         function validarAcceso() {
-            const nombreEscrito = document.getElementById("inp-nombre").value; // [cite: 237]
-            const mensajeDiv = document.getElementById("mensaje-acceso"); // [cite: 239]
+            const nombreEscrito = document.getElementById("inp-nombre").value;
+            const mensajeDiv = document.getElementById("mensaje-acceso");
             
-            if (nombreEscrito === NOMBRE_PERMITIDO) { // [cite: 242]
-                mensajeDiv.innerHTML = "✅ Bienvenido, " + nombreEscrito + "!"; // [cite: 253, 254]
-                mensajeDiv.style.background = "#D4EFDF"; // Verde pastel [cite: 255]
-                mensajeDiv.style.color = "#145A32"; // [cite: 256]
-                mensajeDiv.style.border = "2px solid #27AE60"; // [cite: 257]
-            } else { // [cite: 245]
-                mensajeDiv.innerHTML = "❌ Acceso Denegado"; // [cite: 258]
-                mensajeDiv.style.background = "#FADBD8"; // Rojo pastel [cite: 261]
-                mensajeDiv.style.color = "#7B241C"; // [cite: 262]
-                mensajeDiv.style.border = "2px solid #E74C3C"; // [cite: 263]
+            if (nombreEscrito === NOMBRE_PERMITIDO) {
+                mensajeDiv.innerHTML = "✅ Bienvenido, " + nombreEscrito + "!";
+                mensajeDiv.style.background = "#D4EFDF"; // Verde pastel
+                mensajeDiv.style.color = "#145A32";
+                mensajeDiv.style.border = "2px solid #27AE60";
+            } else {
+                mensajeDiv.innerHTML = "❌ Acceso Denegado";
+                mensajeDiv.style.background = "#FADBD8"; // Rojo pastel
+                mensajeDiv.style.color = "#7B241C";
+                mensajeDiv.style.border = "2px solid #E74C3C";
             }
         }
     </script>

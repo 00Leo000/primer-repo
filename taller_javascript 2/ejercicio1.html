@@ -21,21 +21,32 @@
     <button onclick="cambiarAnimo()">¡Anímame!</button>
 
     <script>
-        let estaFeliz = false; // [cite: 45]
-        function cambiarAnimo() { // [cite: 46]
-            const emojiDiv = document.getElementById("emoji"); // [cite: 47]
+        let estaFeliz = false; 
+        function cambiarAnimo() {
+            const emojiDiv = document.getElementById("emoji");
             const mensajeP = document.getElementById("mensaje");
             
-            if (estaFeliz === false) { // [cite: 49]
+            if (estaFeliz === false) { 
                 document.body.style.background = "#FEF9E7"; // Amarillo suave
-                emojiDiv.innerHTML = "✨"; // [cite: 53]
-                mensajeP.innerHTML = "¡Hoy va a ser un gran día!"; // [cite: 55]
-                estaFeliz = true; // [cite: 56]
+                emojiDiv.innerHTML = "✨"; 
+                
+
+
+                mensajeP.innerHTML = "¡Hoy va a ser un gran día!"; 
+                estaFeliz = true; 
+
+
             } else {
+
+
+
                 document.body.style.background = "#D6EAF8"; // Azul pastel
                 emojiDiv.innerHTML = "💧";
-                mensajeP.innerHTML = "Hoy no es mi mejor día..."; // [cite: 63]
-                estaFeliz = false; // [cite: 62]
+
+
+
+                mensajeP.innerHTML = "Hoy no es mi mejor día..."; 
+                estaFeliz = false; 
             }
         }
     </script>
