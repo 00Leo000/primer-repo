@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>01 - Mascota Virtual</title>
+<style>
+  body { font-family: Arial; padding: 20px; }
+  .tarjeta { border: 2px solid #333; padding: 20px; width: 300px; text-align: center; }
+  button { margin: 5px; padding: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="tarjeta">
+  <h1 id="emoji-mascota">😊</h1>
+  <h2 id="nombre-mascota">Cargando...</h2>
+  <p>Hambre: <span id="val-hambre">0</span></p>
+  <p>Felicidad: <span id="val-felicidad">0</span></p>
+  
+  <button onclick="miMascota.comer()">Comer</button>
+  <button onclick="miMascota.jugar()">Jugar</button>
+  <button onclick="miMascota.cumpleaños()">Cumpleaños</button>
+  <p id="log"></p>
+</div>
+
+<script>
+class Mascota {
+  constructor(nombre) {
+    this.nombre = nombre;
+    this.emoji = "😊";
+    this.hambre = 50;
+    this.felicidad = 50;
+    // Mini-reto: edad y nivel
+    this.edad = 0; 
+    this.nivel = 1; 
+  }
+
+  // Mini-reto: Cumpleaños
+  cumpleaños() {
+    this.edad = this.edad + 1;
+    this.actualizarUI("¡Feliz cumpleaños! Ahora tengo " + this.edad + " años.");
+  }
+
+  comer() {
+    this.hambre = this.hambre - 20;
+    if (this.hambre < 0) this.hambre = 0; // Para que no baje de cero
+    this.actualizarUI("¡Qué rico!");
+  }
+
+  jugar() {
+    this.felicidad = this.felicidad + 20;
+    this.hambre = this.hambre + 10;
+    
+    // Mini-reto: Subir de nivel si felicidad llega a 100
+    if (this.felicidad >= 100) {
+        this.felicidad = 100;
+        this.nivel = this.nivel + 1;
+    }
+    this.actualizarUI("¡Qué divertido!");
+  }
+
+  // Bonus: Cambiar emoji con un if simple
+  actualizarUI(mensaje) {
+    if (this.hambre > 80) { this.emoji = "😭"; } 
+    else if (this.felicidad > 80) { this.emoji = "🤩"; } 
+    else { this.emoji = "😊"; }
+
+    document.getElementById("emoji-mascota").innerText = this.emoji;
+    document.getElementById("nombre-mascota").innerText = this.nombre + " (Nivel: " + this.nivel + ")";
+    document.getElementById("val-hambre").innerText = this.hambre;
+    document.getElementById("val-felicidad").innerText = this.felicidad;
+    document.getElementById("log").innerText = mensaje;
+  }
+}
+
+const miMascota = new Mascota("Fido");
+miMascota.actualizarUI("¡Hola! Soy " + miMascota.nombre);
+</script>
+</body>
+</html>

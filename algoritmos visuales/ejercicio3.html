@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03 - Cuenta Bancaria</title>
+<style>body { font-family: Arial; padding: 20px; }</style>
+</head>
+<body>
+
+<div style="border: 2px solid blue; padding: 20px; width: 300px;">
+  <h2>Cuenta de <span id="titular"></span></h2>
+  <h1>$<span id="saldo-display">0</span></h1>
+  
+  <input id="monto" type="number" placeholder="Cantidad">
+  <br><br>
+  <button onclick="depositar()">Depositar</button>
+  <button onclick="retirar()">Retirar</button>
+  <button onclick="transferir()">Transferir a Carlos</button>
+  
+  <p style="color: red;" id="error-msg"></p>
+  <p id="resumen-msg" style="font-weight: bold;"></p>
+</div>
+
+<script>
+class CuentaBancaria {
+  #saldo = 0; // Privado, no se puede tocar desde afuera
+
+  constructor(titular) {
+    this.titular = titular;
+  }
+
+  // Getter: Permite leer el saldo sin poder modificarlo directamente
+  get saldo() {
+    return this.#saldo;
+  }
+
+  // Mini-reto: Getter que devuelve un texto
+  get resumen() {
+    return "Titular: " + this.titular + " | Saldo: $" + this.#saldo;
+  }
+
+  depositar(monto) {
+    if (monto <= 0) { throw new Error("Debe ser mayor a 0"); }
+    this.#saldo = this.#saldo + monto;
+  }
+
+  retirar(monto) {
+    if (monto > this.#saldo) { throw new Error("No hay suficiente dinero"); }
+    this.#saldo = this.#saldo - monto;
+  }
+
+  // Mini-reto: Transferir a otra cuenta
+  transferir(destino, monto) {
+    this.retirar(monto); // Saca de esta cuenta
+    destino.depositar(monto); // Mete en la otra
+  }
+}
+
+// Mini-reto (comentario): Si intentas escribir cuenta.#saldo aquí, dará un error en consola porque es privado.
+
+const miCuenta = new CuentaBancaria("Ana Garcia");
+const cuentaCarlos = new CuentaBancaria("Carlos López");
+
+function actualizarPantalla() {
+  document.getElementById("titular").innerText = miCuenta.titular;
+  document.getElementById("saldo-display").innerText = miCuenta.saldo;
+  document.getElementById("resumen-msg").innerText = miCuenta.resumen;
+}
+
+function depositar() {
+  let valor = Number(document.getElementById("monto").value);
+  try {
+    miCuenta.depositar(valor);
+    document.getElementById("error-msg").innerText = "";
+  } catch(error) {
+    document.getElementById("error-msg").innerText = error.message;
+  }
+  actualizarPantalla();
+}
+
+function retirar() {
+  let valor = Number(document.getElementById("monto").value);
+  try {
+    miCuenta.retirar(valor);
+    document.getElementById("error-msg").innerText = "";
+  } catch(error) {
+    document.getElementById("error-msg").innerText = error.message;
+  }
+  actualizarPantalla();
+}
+
+function transferir() {
+  let valor = Number(document.getElementById("monto").value);
+  try {
+    miCuenta.transferir(cuentaCarlos, valor);
+    document.getElementById("error-msg").innerText = "Transferencia exitosa a Carlos.";
+  } catch(error) {
+    document.getElementById("error-msg").innerText = error.message;
+  }
+  actualizarPantalla();
+}
+
+actualizarPantalla();
+</script>
+</body>
+</html>

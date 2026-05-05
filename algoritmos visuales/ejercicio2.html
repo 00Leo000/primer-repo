@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>02 - Múltiples Mascotas</title>
+<style>
+  body { font-family: Arial; padding: 20px; }
+  .btn-mascota { font-size: 20px; margin: 5px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h2>Mis Mascotas</h2>
+<div id="selector"></div>
+<br>
+<button onclick="alimentarATodas()">Alimentar a Todas</button>
+<button onclick="mostrarMasFeliz()">¿Quién es más feliz?</button>
+
+<div style="border: 1px solid black; padding: 20px; margin-top: 20px; width: 300px;">
+  <h2 id="nombre-actual">-</h2>
+  <p>Felicidad: <span id="s-felicidad">0</span></p>
+  <button onclick="accion('jugar')">Jugar con esta mascota</button>
+  <p id="log-2"></p>
+</div>
+
+<script>
+class Mascota {
+  constructor(nombre, emoji) {
+    this.nombre = nombre;
+    this.emoji = emoji;
+    this.felicidad = Math.floor(Math.random() * 50) + 20; // Número aleatorio
+  }
+  jugar() { this.felicidad += 20; }
+  comer() { this.felicidad += 5; }
+}
+
+const mascotas = [
+  new Mascota("Fido", "🐶"),
+  new Mascota("Michi", "🐱"),
+  new Mascota("Tweety", "🐦"),
+  new Mascota("Rex", "🦖") // Mini-reto: Mascota extra
+];
+
+let indiceActual = 0;
+
+// Muestra los botones arriba
+function construirSelector() {
+  let html = "";
+  for (let i = 0; i < mascotas.length; i++) {
+    html += "<button class='btn-mascota' onclick='seleccionar(" + i + ")'>" + mascotas[i].emoji + "</button>";
+  }
+  document.getElementById("selector").innerHTML = html;
+}
+
+function seleccionar(indice) {
+  indiceActual = indice;
+  renderMascota();
+}
+
+function renderMascota() {
+  let m = mascotas[indiceActual];
+  document.getElementById("nombre-actual").innerText = m.emoji + " " + m.nombre;
+  document.getElementById("s-felicidad").innerText = m.felicidad;
+}
+
+function accion(tipo) {
+  if (tipo === "jugar") { mascotas[indiceActual].jugar(); }
+  renderMascota();
+}
+
+// Mini-reto: Ciclo for para alimentar a todas
+function alimentarATodas() {
+  for (let i = 0; i < mascotas.length; i++) {
+    mascotas[i].comer();
+  }
+  document.getElementById("log-2").innerText = "¡Todas comieron!";
+  renderMascota();
+}
+
+// Mini-reto: Buscar la más feliz
+function mostrarMasFeliz() {
+  let masFeliz = mascotas[0];
+  for (let i = 1; i < mascotas.length; i++) {
+    if (mascotas[i].felicidad > masFeliz.felicidad) {
+      masFeliz = mascotas[i];
+    }
+  }
+  document.getElementById("log-2").innerText = "La más feliz es: " + masFeliz.nombre;
+}
+
+construirSelector();
+seleccionar(0); // Selecciona la primera por defecto
+</script>
+</body>
+</html>

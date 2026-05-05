@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>04 - Figuras</title>
+</head>
+<body>
+
+<h2>Figuras (Herencia)</h2>
+<p id="info-figura"></p>
+<button onclick="dibujarTodas()">Dibujar todas las figuras</button>
+<br><br>
+<canvas id="lienzo" width="500" height="200" style="border:1px solid black;"></canvas>
+
+<script>
+// Clase padre
+class Figura {
+  constructor(color) { this.color = color; }
+  area() { return 0; }
+  descripcion() { return "Área: " + this.area(); }
+}
+
+// Clase hija 1
+class Circulo extends Figura {
+  constructor(radio, color) { 
+    super(color); // Llama al constructor del padre
+    this.radio = radio; 
+  }
+  area() { return 3.1416 * this.radio * this.radio; }
+  
+  // Mini-reto: Modificar descripción
+  descripcion() {
+    let perimetro = 2 * 3.1416 * this.radio;
+    return "Círculo - Área: " + this.area() + " | Perímetro: " + perimetro;
+  }
+
+  dibujar(ctx, x) {
+    ctx.beginPath();
+    ctx.arc(x, 100, this.radio, 0, 6.28);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+// Clase hija 2
+class Rectangulo extends Figura {
+  constructor(ancho, alto, color) { 
+    super(color); 
+    this.ancho = ancho; 
+    this.alto = alto; 
+  }
+  area() { return this.ancho * this.alto; }
+  dibujar(ctx, x) {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(x - this.ancho/2, 100 - this.alto/2, this.ancho, this.alto);
+  }
+}
+
+// Mini-reto: Clase Rombo
+class Rombo extends Figura {
+  constructor(diagonal1, diagonal2, color) {
+    super(color);
+    this.d1 = diagonal1;
+    this.d2 = diagonal2;
+  }
+  area() { return (this.d1 * this.d2) / 2; }
+  dibujar(ctx, x) {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.moveTo(x, 100 - this.d1/2);
+    ctx.lineTo(x + this.d2/2, 100);
+    ctx.lineTo(x, 100 + this.d1/2);
+    ctx.lineTo(x - this.d2/2, 100);
+    ctx.fill();
+  }
+}
+
+// Bonus: Función para dibujar todas
+function dibujarTodas() {
+  let canvas = document.getElementById("lienzo");
+  let ctx = canvas.getContext("2d");
+  
+  let figuras = [
+      new Circulo(40, "red"),
+      new Rectangulo(60, 40, "green"),
+      new Rombo(50, 80, "purple")
+  ];
+
+  let posicionX = 80;
+  for(let i = 0; i < figuras.length; i++) {
+      figuras[i].dibujar(ctx, posicionX);
+      posicionX = posicionX + 150; // Mover a la derecha para la siguiente
+  }
+  
+  document.getElementById("info-figura").innerText = "Figuras dibujadas correctamente.";
+}
+</script>
+</body>
+</html>
