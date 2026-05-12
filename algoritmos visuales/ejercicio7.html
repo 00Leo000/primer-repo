@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>07 - Estáticos</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; padding: 20px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .panel { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 300px; }
+  h2 { color: #334155; margin-top: 0; font-size: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;}
+  input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+  button { width: 100%; background: #3b82f6; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;}
+  button:hover { background: #2563eb; }
+  .resultado { margin-top: 15px; padding: 10px; background: #eff6ff; border-radius: 6px; color: #1e3a8a; font-weight: bold; text-align: center; min-height: 20px;}
+  .badge { display: inline-block; background: #e2e8f0; color: #475569; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-top: 15px; width: 100%; text-align: center; box-sizing: border-box;}
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <h2>Calculadora (KM a Millas)</h2>
+    <input id="valor-km" type="number" placeholder="Ingresa Kilómetros">
+    <button onclick="calcularMillas()">Convertir a Millas</button>
+    <div id="res-millas" class="resultado">...</div>
+    <div id="total-uso" class="badge">Conversiones usadas: 0</div>
+</div>
+
+<div class="panel">
+    <h2>Validador de Emails</h2>
+    <input id="texto-val" type="text" placeholder="Escribe un correo">
+    <button style="background: #8b5cf6;" onclick="validarTexto()">Verificar formato</button>
+    <div id="res-val" class="resultado" style="background: #f5f3ff; color: #5b21b6;">...</div>
+</div>
+
+<script>
+class Calculadora {
+  static conversionesHechas = 0;
+
+  static kmAMillas(km) { 
+      Calculadora.conversionesHechas++; 
+      return km * 0.621371; 
+  }
+}
+
+class Validador {
+    static esEmail(texto) { 
+        if (texto.includes("@")) { return true; } 
+        else { return false; }
+    }
+}
+
+function calcularMillas() {
+    let km = Number(document.getElementById("valor-km").value);
+    let millas = Calculadora.kmAMillas(km);
+    
+    document.getElementById("res-millas").innerText = millas.toFixed(2) + " Millas";
+    document.getElementById("total-uso").innerText = "Conversiones usadas: " + Calculadora.conversionesHechas;
+}
+
+function validarTexto() {
+    let texto = document.getElementById("texto-val").value;
+    let esValido = Validador.esEmail(texto);
+    
+    if (esValido) {
+        document.getElementById("res-val").innerText = "✅ Sí, parece un email válido.";
+    } else {
+        document.getElementById("res-val").innerText = "❌ No, le falta el arroba (@).";
+    }
+}
+</script>
+</body>
+</html>

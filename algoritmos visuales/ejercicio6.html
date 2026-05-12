@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>06 - Eventos</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0fdf4; display: flex; justify-content: center; padding: 40px; }
+  .card { background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; text-align: center; width: 350px; border: 2px solid #bbf7d0;}
+  h2 { color: #166534; margin-top: 0; }
+  #num-clics { font-size: 80px; font-weight: bold; color: #22c55e; margin: 10px 0; line-height: 1;}
+  .record { background: #fef08a; color: #854d0e; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 20px;}
+  .btn-click { background: #22c55e; color: white; border: none; padding: 15px 30px; font-size: 20px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: transform 0.1s; width: 100%; box-shadow: 0 4px 0 #16a34a;}
+  .btn-click:active { transform: translateY(4px); box-shadow: none; }
+  .btn-reset { background: #fca5a5; color: #7f1d1d; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+  .tecla { background: #e2e8f0; padding: 3px 8px; border-radius: 5px; font-family: monospace; font-weight: bold; border: 1px solid #cbd5e1;}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Contador Rápido</h2>
+    <div class="record" id="record-msg">Récord en 5 segundos: 0</div>
+    
+    <div id="num-clics">0</div>
+    
+    <button id="btn-click" class="btn-click">¡HAZ CLIC!</button>
+    
+    <p style="color: #64748b; font-size: 14px; margin-top: 20px;">
+        O presiona <span class="tecla">Espacio</span> o <span class="tecla">Enter</span>
+    </p>
+    
+    <button class="btn-reset" onclick="miContador.resetear()">Resetear todo</button>
+</div>
+
+<script>
+class Contador {
+  constructor() {
+    this.clics = 0;
+    this.record = 0;
+    this.clicsTemporales = 0;
+    
+    setInterval(() => {
+        if (this.clicsTemporales > this.record) {
+            this.record = this.clicsTemporales;
+            document.getElementById("record-msg").innerText = "Récord en 5 segundos: " + this.record;
+        }
+        this.clicsTemporales = 0; 
+    }, 5000);
+
+    let boton = document.getElementById("btn-click");
+    boton.addEventListener("click", () => { this.sumarClic(); });
+    
+    document.addEventListener("keydown", (evento) => { this.manejarTecla(evento); });
+  }
+
+  resetear() {
+      this.clics = 0;
+      this.clicsTemporales = 0;
+      document.getElementById("num-clics").innerText = this.clics;
+  }
+
+  sumarClic() {
+    this.clics++;
+    this.clicsTemporales++;
+    document.getElementById("num-clics").innerText = this.clics;
+  }
+
+  manejarTecla(evento) {
+    if (evento.code === "Space" || evento.code === "Enter") {
+      evento.preventDefault(); 
+      this.sumarClic();
+    }
+  }
+}
+
+const miContador = new Contador();
+</script>
+</body>
+</html>

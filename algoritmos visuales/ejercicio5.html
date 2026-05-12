@@ -1,28 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>05 - Carrito</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fcfbfb; padding: 20px; max-width: 800px; margin: 0 auto; color: #333; }
+  h2 { text-align: center; color: #2c3e50; }
+  .grid-container { display: flex; gap: 20px; flex-wrap: wrap; }
+  .panel { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex: 1; min-width: 300px; }
+  .catalogo-grid { display: flex; flex-direction: column; gap: 10px; }
+  .prod-btn { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; border: 1px solid #e9ecef; padding: 12px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.2s;}
+  .prod-btn:hover:not(:disabled) { background: #e2e8f0; border-color: #cbd5e1; }
+  .prod-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .item-carrito { display: flex; justify-content: space-between; background: #fff3cd; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #ffc107;}
+  .total-box { background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; text-align: center; font-size: 24px; margin: 15px 0;}
+  .btn-desc { background: #17a2b8; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold;}
+  .btn-desc:hover { background: #138496; }
+</style>
 </head>
 <body>
 
-<h2>Carrito de Compras</h2>
+<h2>Carrito de Compras (Composición)</h2>
 
-<div style="border:1px solid #ccc; padding:10px;">
-  <h3>Catálogo</h3>
-  <div id="catalogo"></div>
-</div>
+<div class="grid-container">
+    <div class="panel">
+      <h3 style="margin-top:0;">Catálogo</h3>
+      <div id="catalogo" class="catalogo-grid"></div>
+    </div>
 
-<div style="border:1px solid #ccc; padding:10px; margin-top:10px;">
-  <h3>Carrito</h3>
-  <div id="lista-carrito"></div>
-  <h2 id="total-box">Total: $0</h2>
-  <p id="ahorro-msg" style="color: green;"></p>
-  <button onclick="aplicarDescuento()">Aplicar 10% Descuento</button>
+    <div class="panel">
+      <h3 style="margin-top:0;">Mi Carrito</h3>
+      <div id="lista-carrito"></div>
+      <div id="total-box" class="total-box">Total: $0</div>
+      <p id="ahorro-msg" style="color: #28a745; font-weight: bold; text-align: center;"></p>
+      <button class="btn-desc" onclick="aplicarDescuento()">Aplicar 10% Descuento</button>
+    </div>
 </div>
 
 <script>
+class Producto {
+  constructor(nombre, precio, stock) { 
+    this.nombre = nombre;
+    this.precio = precio;
+    this.stock = stock;
+  }
+}
 
+class Carrito {
+  constructor() { 
+    this.items = []; 
+  }
+
+  agregar(producto) {
+    if (producto.stock <= 0) return; 
+    
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].producto.nombre === producto.nombre) {
+         this.items[i].cantidad++;
+         producto.stock--; 
+         return;
+      }
+    }
+    this.items.push({ producto: producto, cantidad: 1 });
+    producto.stock--;
+  }
+
+  calcularTotal() {
+    let total = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      total = total + (this.items[i].producto.precio * this.items[i].cantidad);
+    }
+    return total;
+  }
+
+  obtenerTotalConDescuento(porcentaje) {
+    let totalNormal = this.calcularTotal();
+    let descuento = totalNormal * (porcentaje / 100);
+    return totalNormal - descuento;
+  }
+}
+
+const catalogo = [
+  new Producto("Manzana", 2, 10),
+  new Producto("Leche", 3, 0), 
+  new Producto("Pan", 1, 5),
+  new Producto("Queso", 4, 3)
+];
+
+const miCarrito = new Carrito();
+let usandoDescuento = false;
+
+function renderCatalogo() {
+  let html = "";
+  for (let i = 0; i < catalogo.length; i++) {
+    let p = catalogo[i];
+    let estado = p.stock === 0 ? "disabled" : "";
+    html += "<button class='prod-btn' onclick='agregar(" + i + ")' " + estado + ">";
+    html += "<span><strong>" + p.nombre + "</strong> - $" + p.precio + "</span>";
+    html += "<span style='font-size:12px; background:#e9ecef; padding:3px 8px; border-radius:10px;'>Stock: " + p.stock + "</span>";
+    html += "</button>";
+  }
+  document.getElementById("catalogo").innerHTML = html;
+}
+
+function agregar(indice) {
+  miCarrito.agregar(catalogo[indice]);
+  usandoDescuento = false; 
+  renderUI();
+}
+
+function aplicarDescuento() {
+    usandoDescuento = true;
+    renderUI();
+}
+
+function renderUI() {
+  renderCatalogo();
+  
+  let html = "";
+  for (let i = 0; i < miCarrito.items.length; i++) {
+    let it = miCarrito.items[i];
+    html += "<div class='item-carrito'><span>" + it.producto.nombre + "</span> <span>x" + it.cantidad + "</span></div>";
+  }
+  document.getElementById("lista-carrito").innerHTML = html;
+  
+  let totalMostrado = miCarrito.calcularTotal();
+  
+  if (usandoDescuento && totalMostrado > 0) {
+      let ahorro = totalMostrado - miCarrito.obtenerTotalConDescuento(10);
+      totalMostrado = miCarrito.obtenerTotalConDescuento(10);
+      document.getElementById("ahorro-msg").innerText = "¡Te ahorraste $" + ahorro.toFixed(2) + "!";
+  } else {
+      document.getElementById("ahorro-msg").innerText = "";
+  }
+
+  document.getElementById("total-box").innerText = "Total: $" + totalMostrado.toFixed(2);
+}
+
+renderUI();
 </script>
 </body>
 </html>
