@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"> <title>Banco Virtual</title>
+<style>
+body { font-family:sans-serif; max-width: 680px; margin:24px auto; padding:20px; background:#E0F2F1; box-sizing:border-box;}
+h2 { color:#004040; }
+.tabs { display: flex; gap:6px; margin-bottom:14px; }
+.tab { padding:10px 18px; background:white; border:none; border-radius:8px 8px 0 0; cursor:pointer; font-size:14px; color: #555; border-bottom: 3px solid transparent; }
+.tab.activa { color:#00897B; border-bottom-color: #00897B; font-weight:bold; }
+.panel { background:white; border-radius:0 14px 14px 14px; padding:20px; box-shadow:0 2px 12px rgba(0,0,0,.08); }
+.saldo-grande { font-size:46px; font-weight:bold; color: #00897B; text-align:center; margin:8px 0; }
+.tipo-badge { text-align:center; margin-bottom:16px; }
+.badge { display:inline-block; padding: 4px 12px; border-radius:999px; font-size:13px; font-weight:bold;}
+.badge-ahorro { background: #B2EBF2; color:#006064; }
+.badge-corriente { background: #C8E6C9; color:#1B5E20;}
+.badge-joven { background: #FFF9C4; color:#F57F17;}
+.fila-op { display: flex; gap:8px; margin-bottom:10px; }
+input, select { flex:1; padding:10px; font-size:15px; border:2px solid #B2DFDB; border-radius:8px; }
+.btn-dep { padding:10px 16px; background: #B2DFDB; color: #004D40; border:none; border-radius:8px; font-weight:bold; cursor:pointer;}
+.btn-ret { padding:10px 16px; background: #FFCDD2; color:#B71C1C; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
+.mov-list { max-height:180px; overflow-y:auto; margin-top:12px;}
+.mov { display: flex; justify-content: space-between; padding:8px 12px; border-radius:6px; margin-bottom:4px; font-size:14px; }
+.dep { background:#E0F2F1; color:#004040; }
+.ret { background: #FFEBEE; color:#B71C1C; }
+.err-msg { color:#C62828; font-size:13px; text-align:center; margin-top:6px;}
+.stat-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; }
+.stat { background:#E0F2F1; border-radius:10px; padding:14px; text-align:center; font-weight:bold; color:#00695C;}
+.stat .n { font-size:28px;}
+.crear-form { display:grid; gap:8px;}
+#lista-cuentas { display: flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.chip-cuenta { padding:8px 14px; border:2px solid #B2DFDB; background:white; border-radius:999px; cursor:pointer; font-size:14px; }
+.chip-cuenta.activo { background:#00897B; color: white; border-color:#00897B }
+</style>
+</head><body>
+<h2>Banco Virtual POO</h2>
+<div class="tabs">
+<button class="tab activa" onclick="mostrarTab('cuentas')">Cuentas</button>
+<button class="tab" onclick="mostrarTab('nueva')">+ Nueva cuenta</button>
+<button class="tab" onclick="mostrarTab('stats')">Estadísticas</button>
+</div>
+<div id="tab-cuentas" class="panel">
+<div id="lista-cuentas"></div>
+<div id="panel-cuenta"></div>
+</div>
+<div id="tab-nueva" class="panel" style="display:none">
+<h3>Nueva cuenta</h3>
+<div class="crear-form">
+<input id="nw-titular" type="text" placeholder="Nombre del titular">
+<input id="nw-saldo" type="number" placeholder="Saldo inicial">
+<select id="nw-tipo">
+<option value="ahorro">Cuenta de Ahorro (interés 2%)</option>
+<option value="corriente">Cuenta Corriente (sin interés)</option>
+<option value="joven">Cuenta Joven (interés 3.5% | Límite $500)</option>
+</select>
+<button onclick="banco.crearCuenta()" style="padding:11px;background:#00897B;color:white;border:none; border-radius:8px;font-size:15px;cursor:pointer;">Crear cuenta</button>
+</div>
+</div>
+<div id="tab-stats" class="panel" style="display:none">
+<h3>Estadísticas del banco</h3>
+<div class="stat-grid" id="stat-grid"></div>
+</div>
+<script>
+class CuentaBancaria {
+    #saldo = 0;
+    #movimientos = [];
+    static totalCuentas = 0;
+
+    constructor(titular, saldoInicial, tipo, id = null, movimientos = null) {
+        this.titular = titular;
+        this.tipo = tipo;
+        this.id = id ? id : ++CuentaBancaria.totalCuentas;
+        
+        if (movimientos && movimientos.length > 0) {
+            this.#saldo = saldoInicial; 
+            this.#movimientos = movimientos;
+        } else if (saldoInicial > 0) {
+            this.#saldo = saldoInicial;
+            this.#movimientos.push({ tipo:"apertura", monto:saldoInicial, fecha:new Date().toLocaleTimeString() });
+        }
+    }
+    get saldo() { return this.#saldo; }
+    
+    depositar(monto) {
+        if (monto <= 0) throw new Error("Monto inválido");
+        this.#saldo += monto;
+        this.#movimientos.unshift({ tipo:"deposito", monto, fecha:new Date().toLocaleTimeString() });
+    }
+    retirar(monto) {
+        if (monto <= 0) throw new Error("Monto inválido");
+        if (monto > this.#saldo) throw new Error("Saldo insuficiente");
+        this.#saldo -= monto;
+        this.#movimientos.unshift({ tipo:"retiro", monto, fecha:new Date().toLocaleTimeString() });
+    }
+    getMovimientos() { return [...this.#movimientos].slice(0,8); }
+    calcularInteres() { return 0; }
+    toJSON() {
+        return { titular:this.titular, saldo:this.#saldo, tipo:this.tipo, id:this.id, movimientos: this.#movimientos };
+    }
+}
+
+class CuentaAhorro extends CuentaBancaria {
+    constructor(titular, saldoInicial, id=null, movs=null) {
+        super(titular, saldoInicial, "ahorro", id, movs);
+        this.tasaInteres = 0.02; 
+    }
+    calcularInteres() { return this.saldo * this.tasaInteres; }
+    aplicarInteres() {
+        const interes = this.calcularInteres();
+        if(interes > 0) this.depositar(interes);
+        return interes;
+    }
+}
+
+class CuentaCorriente extends CuentaBancaria {
+    constructor(titular, saldoInicial, id=null, movs=null) {
+        super(titular, saldoInicial, "corriente", id, movs);
+        this.sobregiro = 200; 
+    }
+    retirar(monto) {
+        if (monto <= 0) throw new Error("Monto inválido");
+        if (monto > this.saldo + this.sobregiro) throw new Error(`Excede límite de sobregiro ($${this.sobregiro})`);
+        if (monto <= this.saldo) super.retirar(monto);
+        else this.depositar(-monto); 
+    }
+}
+
+class CuentaJoven extends CuentaAhorro {
+    constructor(titular, saldoInicial, id=null, movs=null) {
+        super(titular, saldoInicial, id, movs);
+        this.tipo = "joven";
+        this.tasaInteres = 0.035; 
+    }
+    depositar(monto) {
+        if (monto > 500) throw new Error("Excede límite de depósito de cuenta joven ($500)");
+        super.depositar(monto);
+    }
+}
+
+class Banco {
+    static STORAGE_KEY = "banco_cuentas";
+
+    constructor() {
+        this.cuentas = Banco.crearDesdeJSON() || [];
+        this.seleccionada = 0;
+    }
+
+    static crearDesdeJSON() {
+        const data = localStorage.getItem(Banco.STORAGE_KEY);
+        if (!data) return null;
+        
+        const parser = JSON.parse(data);
+        const arrayCuentas = [];
+        
+        parser.forEach(c => {
+            if(c.id > CuentaBancaria.totalCuentas) CuentaBancaria.totalCuentas = c.id;
+            
+            if (c.tipo === "ahorro") arrayCuentas.push(new CuentaAhorro(c.titular, c.saldo, c.id, c.movimientos));
+            else if (c.tipo === "corriente") arrayCuentas.push(new CuentaCorriente(c.titular, c.saldo, c.id, c.movimientos));
+            else if (c.tipo === "joven") arrayCuentas.push(new CuentaJoven(c.titular, c.saldo, c.id, c.movimientos));
+        });
+        return arrayCuentas;
+    }
+
+    guardar() {
+        localStorage.setItem(Banco.STORAGE_KEY, JSON.stringify(this.cuentas));
+    }
+
+    crearCuenta() {
+        const titular = document.getElementById("nw-titular").value.trim();
+        const saldo = Number(document.getElementById("nw-saldo").value);
+        const tipo = document.getElementById("nw-tipo").value;
+        if (!titular) { alert("Escribe el nombre"); return; }
+        
+        let cuenta;
+        if (tipo === "ahorro") cuenta = new CuentaAhorro(titular, saldo);
+        else if (tipo === "corriente") cuenta = new CuentaCorriente(titular, saldo);
+        else cuenta = new CuentaJoven(titular, saldo);
+        
+        this.cuentas.push(cuenta);
+        this.seleccionada = this.cuentas.length - 1;
+        this.guardar();
+        mostrarTab("cuentas");
+        this.renderTodo();
+    }
+
+    seleccionar(i) { this.seleccionada = i; this.renderTodo(); }
+
+    ejecutarOperacion(operacion) {
+        const monto = Number(document.getElementById("monto-op").value);
+        const err = document.getElementById("err-op");
+        try {
+            if(operacion === "deposito") this.cuentas[this.seleccionada].depositar(monto);
+            else this.cuentas[this.seleccionada].retirar(monto);
+            err.innerHTML="";
+            this.guardar();
+            this.renderTodo(); 
+        } catch(e) { err.innerHTML = "⚠ " + e.message; }
+    }
+
+    aplicarIntereses() {
+        this.cuentas.forEach(c => {
+            if (c instanceof CuentaAhorro) c.aplicarInteres();
+        });
+        this.guardar();
+        this.renderTodo();
+    }
+
+    renderTodo() {
+        this.renderSelectorCuentas();
+        if (this.cuentas.length > 0) this.renderPanelCuenta();
+        this.renderStats();
+    }
+
+    renderSelectorCuentas() {
+        const cont = document.getElementById("lista-cuentas");
+        cont.innerHTML = "";
+        this.cuentas.forEach((c, i) => {
+            const clase = i === this.seleccionada ? "chip-cuenta activo" : "chip-cuenta";
+            cont.innerHTML += `<span class="${clase}" onclick="banco.seleccionar(${i})">${c.titular}</span>`;
+        });
+    }
+
+    renderPanelCuenta() {
+        const c = this.cuentas[this.seleccionada];
+        let badge = "";
+        if(c.tipo === "ahorro") badge = `<span class="badge badge-ahorro">Ahorro Interés ${c.tasaInteres*100}%</span>`;
+        else if(c.tipo === "joven") badge = `<span class="badge badge-joven">Joven Interés ${c.tasaInteres*100}%</span>`;
+        else badge = `<span class="badge badge-corriente">Corriente Sobregiro $${c.sobregiro}</span>`;
+
+        let movsHtml = "";
+        c.getMovimientos().forEach(m => {
+            const cls = m.tipo==="deposito"||m.tipo==="apertura"||m.tipo==="interes" ? "dep" : "ret";
+            movsHtml += `<div class="mov ${cls}"><span>${m.tipo}</span><span>$${Math.abs(m.monto).toFixed(2)} - ${m.fecha}</span></div>`;
+        });
+
+        document.getElementById("panel-cuenta").innerHTML = `
+            <div class="tipo-badge">${badge}</div>
+            <div class="saldo-grande">$${c.saldo.toFixed(2)}</div>
+            <div class="fila-op">
+                <input id="monto-op" type="number" placeholder="Monto">
+                <button class="btn-dep" onclick="banco.ejecutarOperacion('deposito')">Dep.</button>
+                <button class="btn-ret" onclick="banco.ejecutarOperacion('retiro')">Ret.</button>
+            </div>
+            <p class="err-msg" id="err-op"></p>
+            <button onclick="banco.aplicarIntereses()" style="padding:7px 14px;background:#FFF9C4;border:none;border-radius:8px;cursor:pointer;margin-bottom:8px;">Aplicar intereses</button>
+            <div class="mov-list">${movsHtml}</div>`;
+    }
+
+    renderStats() {
+        const totalSaldo = this.cuentas.reduce((sum, c) => sum + c.saldo, 0);
+        document.getElementById("stat-grid").innerHTML = `
+            <div class="stat"><div class="n">${this.cuentas.length}</div>Cuentas</div>
+            <div class="stat"><div class="n">$${totalSaldo.toFixed(0)}</div>Saldo total</div>
+            <div class="stat"><div class="n">${this.cuentas.filter(c => c instanceof CuentaAhorro).length}</div>Ahorro/Joven</div>`;
+    }
+}
+
+const banco = new Banco();
+if(banco.cuentas.length === 0) {
+    banco.cuentas.push(new CuentaAhorro("María García", 1500));
+    banco.cuentas.push(new CuentaCorriente("Carlos López", 800));
+    banco.guardar();
+}
+banco.renderTodo();
+
+function mostrarTab(id) {
+    ["cuentas", "nueva", "stats"].forEach(t => {
+        document.getElementById("tab-" + t).style.display = t === id ? "block" : "none";
+    });
+    document.querySelectorAll(".tab").forEach((b,i) => b.classList.toggle("activa", ["cuentas", "nueva", "stats"][i] === id));
+}
+</script>
+</body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><title>Galería con Filtros</title>
+<style>
+body { font-family:sans-serif; max-width: 700px; margin:24px auto; padding:20px; background:#FFF8F7; }
+.filtros { display: flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; align-items:center;}
+.chip { padding:8px 16px; border:2px solid #FECACA; background:white; border-radius:999px; cursor:pointer; font-size:14px; transition:all .2s; }
+.chip.activo { background: #E74C3C; color:white; border-color:#E74C3C; }
+.busqueda { width: 100%; padding:10px 14px; font-size:15px; border:2px solid #FECACA; border-radius:10px; box-sizing:border-box; margin-bottom:14px; }
+select { padding:8px; border-radius:8px; border:2px solid #FECACA; outline:none; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
+.card { background:white; border-radius:12px; padding:14px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,.08); transition:transform.2s; position:relative;}
+.card:hover { transform:translateY(-4px); }
+.card-emoji { font-size:40px; }
+.card-nombre { font-weight:bold; font-size:14px; color:#4A0E0E; margin:8px 0 4px; }
+.card-precio { color:#E74C3C; font-weight:bold; font-size:16px; }
+.card-cat { font-size:11px; background: #FECACA; color:#7D2200; padding:2px 8px; border-radius: 999px; display:inline-block; margin-top:6px;}
+.stats-bar { background:#FFF0EE; border-radius:8px; padding:10px 14px; font-size:14px; color:#922B21; margin-bottom:12px; display:flex; justify-content:space-between;}
+.btn-fav { position:absolute; top:8px; right:8px; background:none; border:none; cursor:pointer; font-size:18px; }
+</style>
+</head>
+<body>
+<h2>Tienda Online</h2>
+<input class="busqueda" id="busqueda" type="text" placeholder="Buscar productos..." oninput="tienda.filtrar()">
+<div class="filtros" id="filtros"></div>
+<div class="filtros">
+    <select id="ordenar" onchange="tienda.filtrar()">
+        <option value="defecto">Ordenar por...</option>
+        <option value="precioAsc">Precio: Menor a Mayor</option>
+        <option value="precioDesc">Precio: Mayor a Menor</option>
+        <option value="nombreAsc">Nombre: A-Z</option>
+    </select>
+    <button class="chip" id="btn-fav-filtro" onclick="tienda.toggleFiltroFav()">⭐ Mostrar Favoritos</button>
+</div>
+<div class="stats-bar">
+    <span id="stats-info"></span>
+    <span>Productos vistos: <strong id="vistos-contador">0</strong></span>
+</div>
+<div class="grid" id="grid-productos"></div>
+<script>
+class Producto {
+    constructor(id, nombre, precio, categoria, emoji) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.emoji = emoji;
+        this.favorito = false;
+    }
+    toggleFavorito() { this.favorito = !this.favorito; }
+}
+
+class Tienda {
+    constructor(productos) {
+        this.productos = productos;
+        this.categoriaActiva = "Todos";
+        this.soloFavoritos = false;
+        this.productosVistos = 0;
+        this.construirFiltros();
+        this.filtrar();
+    }
+    obtenerCategorias() {
+        const cats = ["Todos"];
+        this.productos.forEach(p => { if (!cats.includes(p.categoria)) cats.push(p.categoria); });
+        return cats;
+    }
+    construirFiltros() {
+        const cont = document.getElementById("filtros");
+        cont.innerHTML = "";
+        this.obtenerCategorias().forEach(cat => {
+            const clase = cat === this.categoriaActiva ? "chip activo" : "chip";
+            cont.innerHTML += `<span class="${clase}" onclick="tienda.setCategoria('${cat}')">${cat}</span>`;
+        });
+    }
+    setCategoria(cat) {
+        this.categoriaActiva = cat;
+        this.construirFiltros();
+        this.filtrar();
+    }
+    toggleFiltroFav() {
+        this.soloFavoritos = !this.soloFavoritos;
+        document.getElementById("btn-fav-filtro").classList.toggle("activo", this.soloFavoritos);
+        this.filtrar();
+    }
+    toggleProdFav(id) {
+        const prod = this.productos.find(p => p.id === id);
+        if (prod) prod.toggleFavorito();
+        this.filtrar();
+    }
+    incrementarVistos() {
+        this.productosVistos++;
+        document.getElementById("vistos-contador").innerText = this.productosVistos;
+    }
+    filtrar() {
+        const busq = document.getElementById("busqueda").value.toLowerCase();
+        let resultado = this.productos.filter(p => {
+            const coincideCat = this.categoriaActiva === "Todos" || p.categoria === this.categoriaActiva;
+            const coincideBusq = p.nombre.toLowerCase().includes(busq);
+            const coincideFav = !this.soloFavoritos || p.favorito;
+            return coincideCat && coincideBusq && coincideFav;
+        });
+
+        const orden = document.getElementById("ordenar").value;
+        if (orden === "precioAsc") resultado.sort((a,b) => a.precio - b.precio);
+        else if (orden === "precioDesc") resultado.sort((a,b) => b.precio - a.precio);
+        else if (orden === "nombreAsc") resultado.sort((a,b) => a.nombre.localeCompare(b.nombre));
+
+        this.renderGrid(resultado);
+    }
+    renderGrid(lista) {
+        let total = lista.reduce((sum, p) => sum + p.precio, 0);
+        const prom = lista.length ? (total / lista.length).toFixed(2) : 0;
+        document.getElementById("stats-info").innerHTML = `${lista.length} productos | Precio promedio: $${prom}`;
+        
+        const grid = document.getElementById("grid-productos");
+        grid.innerHTML = "";
+        lista.forEach(p => {
+            grid.innerHTML += `
+            <div class="card" onmouseover="tienda.incrementarVistos()">
+                <button class="btn-fav" onclick="tienda.toggleProdFav(${p.id})">${p.favorito ? "⭐" : "☆"}</button>
+                <div class="card-emoji">${p.emoji}</div>
+                <div class="card-nombre">${p.nombre}</div>
+                <div class="card-precio">$${p.precio.toFixed(2)}</div>
+                <span class="card-cat">${p.categoria}</span>
+            </div>`;
+        });
+    }
+}
+const tienda = new Tienda([
+    new Producto(1, "Auriculares", 59.99, "Electrónica", "🎧"),
+    new Producto(2, "Teclado RGB", 89.99, "Electrónica", "⌨️"),
+    new Producto(3, "Mochila", 34.50, "Accesorios", "🎒"),
+    new Producto(4, "Gorra", 19.90, "Accesorios", "🧢"),
+    new Producto(5, "Lámpara LED", 27.00, "Hogar", "💡"),
+    new Producto(6, "Planta Suculenta", 8.99, "Hogar", "🪴"),
+    new Producto(7, "Cuaderno A5", 12.50, "Papelería", "📓"),
+    new Producto(8, "Bolígrafos x10", 6.80, "Papelería", "🖊️")
+]);
+</script>
+</body>
+</html>

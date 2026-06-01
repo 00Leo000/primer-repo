@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><title>Notas Persistentes</title>
+<style>
+body { font-family:sans-serif; max-width: 560px; margin:30px auto; padding:20px; background: #EEF6FD; }
+.panel { background:white; border-radius:14px; padding:20px; box-shadow:0 2px 12px rgba(0,0,0,.08); margin-bottom:14px; }
+textarea { width:100%; height:80px; padding:10px; font-size:15px; border:2px solid #BFDBFE; border-radius: 8px; box-sizing: border-box; resize:vertical; }
+.controles { display: flex; gap:8px; margin-top:8px; align-items: center; }
+.botones { display: flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+button { flex:1; padding:10px; border:none; border-radius:8px; font-size:14px; cursor:pointer; font-weight:bold; }
+.btn-guardar { background: #BFDBFE; color:#1E40AF; }
+.btn-limpiar { background: #FECACA; color:#991B1B; }
+.btn-exportar { background: #D1FAE5; color:#065F46; }
+.nota-card { border-left: 4px solid #1B6CA8; padding: 12px; border-radius:0 8px 8px 0; margin-bottom:8px; position:relative; }
+.nota-fecha { font-size:11px; color: #687280; margin-bottom:4px;}
+.nota-texto { font-size:15px; }
+.btn-del-nota { position:absolute; top:8px; right:8px; background:#FEE2E2; border:none; border-radius: 6px; padding:2px 8px; cursor:pointer; font-size:12px; color:#DC2626; }
+.buscador { width:100%; padding:8px; margin-bottom:10px; border:2px solid #BFDBFE; border-radius:8px; box-sizing:border-box;}
+</style>
+</head>
+<body>
+<h2>Notas Persistentes</h2>
+<div class="panel">
+<textarea id="inp-nota" placeholder="Escribe tu nota aquí..."></textarea>
+<div class="controles">
+    <label>Color: <input type="color" id="inp-color" value="#EFF6FF"></label>
+</div>
+<div class="botones">
+<button class="btn-guardar" onclick="gestor.guardar()">Guardar</button>
+<button class="btn-limpiar" onclick="gestor.limpiarTodo()">Borrar todo</button>
+<button class="btn-exportar" onclick="gestor.exportar()">Exportar JSON</button>
+</div>
+</div>
+<div class="panel">
+<strong>Mis notas (<span id="cont-notas">0</span>)</strong>
+<input type="text" id="buscador" class="buscador" placeholder="Buscar nota..." oninput="gestor.buscar(this.value)">
+<div id="lista-notas"></div>
+</div>
+<script>
+class GestorNotas {
+    static CLAVE = "mis_notas_poo";
+    
+    constructor() {
+        this.notas = this.cargarDeStorage();
+        this.render();
+    }
+    cargarDeStorage() {
+        const json = localStorage.getItem(GestorNotas.CLAVE);
+        if (json) return JSON.parse(json);
+        return [];
+    }
+    guardarEnStorage() {
+        localStorage.setItem(GestorNotas.CLAVE, JSON.stringify(this.notas));
+    }
+    guardar() {
+        const texto = document.getElementById("inp-nota").value.trim();
+        const color = document.getElementById("inp-color").value;
+        if (!texto) return;
+        const nota = { id: Date.now(), texto, fecha: new Date().toLocaleString(), color };
+        this.notas.unshift(nota);
+        this.guardarEnStorage();
+        document.getElementById("inp-nota").value = "";
+        this.render();
+    }
+    eliminar(id) {
+        this.notas = this.notas.filter(n => n.id !== id);
+        this.guardarEnStorage();
+        this.render();
+    }
+    limpiarTodo() {
+        if (!confirm("¿Borrar todas las notas?")) return;
+        this.notas = [];
+        localStorage.removeItem(GestorNotas.CLAVE);
+        this.render();
+    }
+    buscar(termino) {
+        const filtro = this.notas.filter(n => n.texto.toLowerCase().includes(termino.toLowerCase()));
+        this.render(filtro); 
+    }
+    exportar() {
+        const jsonStr = JSON.stringify(this.notas, null, 2);
+        const a = document.createElement("a");
+        a.href = "data:text/json;charset=utf-8," + encodeURIComponent(jsonStr);
+        a.download = "mis_notas.json";
+        a.click();
+    }
+    render(listaRender = this.notas) {
+        document.getElementById("cont-notas").innerHTML = listaRender.length;
+        const lista = document.getElementById("lista-notas");
+        lista.innerHTML = "";
+        for (let i = 0; i < listaRender.length; i++) {
+            const n = listaRender[i];
+            lista.innerHTML += `
+            <div class="nota-card" style="background-color: ${n.color}">
+                <div class="nota-fecha">${n.fecha}</div>
+                <div class="nota-texto">${n.texto}</div>
+                <button class="btn-del-nota" onclick="gestor.eliminar(${n.id})">X</button>
+            </div>`;
+        }
+    }
+}
+const gestor = new GestorNotas();
+</script>
+</body>
+</html>

@@ -1,70 +1,177 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>07 - Estáticos</title>
+<meta charset="UTF-8"><title>07 - Métodos Estáticos</title>
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; padding: 20px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-  .panel { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 300px; }
-  h2 { color: #334155; margin-top: 0; font-size: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;}
-  input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
-  button { width: 100%; background: #3b82f6; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;}
-  button:hover { background: #2563eb; }
-  .resultado { margin-top: 15px; padding: 10px; background: #eff6ff; border-radius: 6px; color: #1e3a8a; font-weight: bold; text-align: center; min-height: 20px;}
-  .badge { display: inline-block; background: #e2e8f0; color: #475569; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-top: 15px; width: 100%; text-align: center; box-sizing: border-box;}
+  body { font-family:sans-serif; max-width: 560px; margin: 30px auto; padding:20px; background: #E8EAF6; }
+  .panel { background: white; border-radius:14px; padding:20px; box-shadow:0 2px 12px rgba(0,0,0,.08); margin-bottom:14px; }
+  h3 { color:#283593; margin-top:0; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  input, select { padding:9px; font-size:15px; border:2px solid #C5CAE9; border-radius:8px; width:100%; box-sizing:border-box; margin-bottom: 10px;}
+  button { width:100%; margin-top:10px; padding:11px; background:#3949AB; color:white; border:none; border-radius:8px; font-size:15px; cursor:pointer; }
+  .resultado { background: #E8EAF6; border-radius:8px; padding:14px; margin-top:10px; font-size:18px; color:#1A237E; font-weight:bold; text-align:center; }
+  .estadistica { display: flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #E8EAF6; font-size:15px; }
 </style>
 </head>
 <body>
 
+<h2>Calculadora de Estadísticas y Validaciones</h2>
+
 <div class="panel">
-    <h2>Calculadora (KM a Millas)</h2>
-    <input id="valor-km" type="number" placeholder="Ingresa Kilómetros">
-    <button onclick="calcularMillas()">Convertir a Millas</button>
-    <div id="res-millas" class="resultado">...</div>
-    <div id="total-uso" class="badge">Conversiones usadas: 0</div>
+  <h3>Convertidor de unidades</h3>
+  <div class="grid-2">
+    <input id="valor-conv" type="number" placeholder="Valor">
+    <select id="tipo-conv">
+      <option value="kmMillas">km → millas</option>
+      <option value="millaKm">millas → km</option>
+      <option value="cF">°C → °F</option>
+      <option value="fC">°F → °C</option>
+    </select>
+  </div>
+  <button onclick="ejecutarConversion()">Convertir</button>
+  <div class="resultado" id="res-conv">...</div>
+  <div style="text-align:center; margin-top:10px; font-size:14px; color:#555;" id="contador-conv">Conversiones totales: 0</div>
 </div>
 
 <div class="panel">
-    <h2>Validador de Emails</h2>
-    <input id="texto-val" type="text" placeholder="Escribe un correo">
-    <button style="background: #8b5cf6;" onclick="validarTexto()">Verificar formato</button>
-    <div id="res-val" class="resultado" style="background: #f5f3ff; color: #5b21b6;">...</div>
+  <h3>Estadísticas de una lista</h3>
+  <input id="lista-nums" type="text" placeholder="Números separados por comas: 10,20,30">
+  <button onclick="calcularStats()">Calcular</button>
+  <div id="res-stats" style="margin-top:15px;"></div>
+</div>
+
+<div class="panel">
+  <h3>Validador (Bonus)</h3>
+  <input id="val-email" type="text" placeholder="Correo electrónico">
+  <input id="val-num" type="number" placeholder="Número positivo">
+  <input id="val-texto" type="text" placeholder="Texto (entre 3 y 10 caracteres)">
+  <button onclick="ejecutarValidaciones()" style="background:#5E35B1;">Validar todo</button>
+  <div class="resultado" id="res-val" style="font-size:15px; text-align:left;">...</div>
 </div>
 
 <script>
 class Calculadora {
-  static conversionesHechas = 0;
+  // Reto: Contador estático
+  static totalConversiones = 0;
 
-  static kmAMillas(km) { 
-      Calculadora.conversionesHechas++; 
-      return km * 0.621371; 
+  static kmAMillas(km) { return km * 0.621371; }
+  static millasAKm(millas) { return millas / 0.621371; }
+  static celsiusAFahr(c) { return (c * 9/5) + 32; }
+  static fahrACelsius(f) { return (f - 32) * 5/9; }
+
+  static convertir(valor, tipo) {
+    Calculadora.totalConversiones++; // Aumenta con cada llamado
+    if (tipo === "kmMillas") return Calculadora.kmAMillas(valor);
+    if (tipo === "millaKm") return Calculadora.millasAKm(valor);
+    if (tipo === "cF") return Calculadora.celsiusAFahr(valor);
+    if (tipo === "fC") return Calculadora.fahrACelsius(valor);
+    return 0;
   }
 }
 
-class Validador {
-    static esEmail(texto) { 
-        if (texto.includes("@")) { return true; } 
-        else { return false; }
-    }
-}
-
-function calcularMillas() {
-    let km = Number(document.getElementById("valor-km").value);
-    let millas = Calculadora.kmAMillas(km);
+class Estadisticas {
+  static suma(nums) {
+    let total = 0;
+    for (let i = 0; i < nums.length; i++) total += nums[i];
+    return total;
+  }
+  static promedio(nums) {
+    return nums.length ? Estadisticas.suma(nums) / nums.length : 0;
+  }
+  static maximo(nums) {
+    if (!nums.length) return 0;
+    let max = nums[0];
+    for (let i = 1; i < nums.length; i++) if (nums[i] > max) max = nums[i];
+    return max;
+  }
+  static minimo(nums) {
+    if (!nums.length) return 0;
+    let min = nums[0];
+    for (let i = 1; i < nums.length; i++) if (nums[i] < min) min = nums[i];
+    return min;
+  }
+  static desviacion(nums) {
+    if (!nums.length) return 0;
+    const prom = Estadisticas.promedio(nums);
+    let sumDif = 0;
+    for (let i = 0; i < nums.length; i++) sumDif += Math.pow(nums[i] - prom, 2);
+    return Math.sqrt(sumDif / nums.length);
+  }
+  
+  // Reto: Método Mediana
+  static mediana(nums) {
+    if (!nums.length) return 0;
+    // Se crea una copia del array con [...] para no modificar el original al ordenar
+    const ordenados = [...nums].sort((a, b) => a - b);
+    const mitad = Math.floor(ordenados.length / 2);
     
-    document.getElementById("res-millas").innerText = millas.toFixed(2) + " Millas";
-    document.getElementById("total-uso").innerText = "Conversiones usadas: " + Calculadora.conversionesHechas;
-}
-
-function validarTexto() {
-    let texto = document.getElementById("texto-val").value;
-    let esValido = Validador.esEmail(texto);
-    
-    if (esValido) {
-        document.getElementById("res-val").innerText = "✅ Sí, parece un email válido.";
+    // Evalúa si la cantidad de números es par o impar
+    if (ordenados.length % 2 !== 0) {
+        return ordenados[mitad];
     } else {
-        document.getElementById("res-val").innerText = "❌ No, le falta el arroba (@).";
+        return (ordenados[mitad - 1] + ordenados[mitad]) / 2;
     }
+  }
+}
+
+// Reto Bonus: Clase Validador
+class Validador {
+    static esEmail(str) {
+        return str.includes("@") && str.includes(".");
+    }
+    static esNumeroPositivo(n) {
+        return typeof n === 'number' && n > 0;
+    }
+    static tieneLongitud(str, min, max) {
+        return str.length >= min && str.length <= max;
+    }
+}
+
+function ejecutarConversion() {
+  const valor = Number(document.getElementById("valor-conv").value);
+  const tipo = document.getElementById("tipo-conv").value;
+  const res = Calculadora.convertir(valor, tipo);
+  
+  document.getElementById("res-conv").innerHTML = res.toFixed(4);
+  document.getElementById("contador-conv").innerHTML = "Conversiones totales: " + Calculadora.totalConversiones;
+}
+
+function calcularStats() {
+  const texto = document.getElementById("lista-nums").value;
+  const nums = texto.split(",").map(n => Number(n.trim())).filter(n => !isNaN(n) && texto.trim() !== "");
+  
+  if (nums.length === 0) return;
+
+  const stats = [
+    ["Suma", Estadisticas.suma(nums).toFixed(2)],
+    ["Promedio", Estadisticas.promedio(nums).toFixed(2)],
+    ["Máximo", Estadisticas.maximo(nums)],
+    ["Mínimo", Estadisticas.minimo(nums)],
+    ["Desviación", Estadisticas.desviacion(nums).toFixed(2)],
+    ["Mediana", Estadisticas.mediana(nums).toFixed(2)] // Se muestra el resultado del reto
+  ];
+
+  let html = "";
+  for (let i = 0; i < stats.length; i++) {
+    html += "<div class='estadistica'><span>" + stats[i][0] + "</span><strong>" + stats[i][1] + "</strong></div>";
+  }
+  document.getElementById("res-stats").innerHTML = html;
+}
+
+function ejecutarValidaciones() {
+    const email = document.getElementById("val-email").value;
+    const num = Number(document.getElementById("val-num").value);
+    const texto = document.getElementById("val-texto").value;
+
+    const emailValido = Validador.esEmail(email) ? "✅ Válido" : "❌ Inválido";
+    const numValido = Validador.esNumeroPositivo(num) ? "✅ Válido" : "❌ Inválido";
+    const textoValido = Validador.tieneLongitud(texto, 3, 10) ? "✅ Válido" : "❌ Inválido";
+
+    document.getElementById("res-val").innerHTML = `
+        <strong>Email:</strong> ${emailValido}<br>
+        <strong>Número positivo:</strong> ${numValido}<br>
+        <strong>Texto (3-10 caracteres):</strong> ${textoValido}
+    `;
 }
 </script>
 </body>
